@@ -25,7 +25,7 @@ public class AccountDao extends BaseDao {
                 //Generate next id
                 id = Generator.nextId("U", id, false);
             } else {
-                id = "U0001";
+                id = "U00001";
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

@@ -1,6 +1,7 @@
 package MotelManagement.bus;
 
 import MotelManagement.dao.RoomDao;
+import MotelManagement.dto.ApplicationUser;
 import MotelManagement.dto.Guest;
 import MotelManagement.dto.Room;
 import java.util.Date;
@@ -118,12 +119,15 @@ public class RoomBus {
         return roomDao.selectRoom(roomId);
     }
     
+    public Room getRoom(ApplicationUser user) {
+        return roomDao.selectRoom(user);
+    }
     /**
      * Lấy tiền thuê của phòng
      * @param roomId mã phòng
      * @return tiền thuê phòng
      */
-    public double getMoney(String roomId) {
+    public double getPrice(String roomId) {
         return roomDao.selectMoney(roomId);
     }
     

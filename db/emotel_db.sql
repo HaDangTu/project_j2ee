@@ -44,7 +44,7 @@ CREATE TABLE `roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO roles (id, name) VALUES ('R01', 'Owner');
-INSERT INTO roles (id, name) VALUES ('R02', 'Guests');
+INSERT INTO roles (id, name) VALUES ('R02', 'Guest');
 
 -- accounts table 
 CREATE TABLE `accounts` (

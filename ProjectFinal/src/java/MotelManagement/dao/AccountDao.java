@@ -130,7 +130,7 @@ public class AccountDao extends BaseDao {
      */
     public String selectUserRole(ApplicationUser user) {
         String query = "SELECT name FROM roles WHERE id = (SELECT role_id "
-                + "FROM accounts WHERE id = ?";
+                + "FROM accounts WHERE id = ?)";
         
         Object[] parameters = new Object[] {
             user.getId()

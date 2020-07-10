@@ -1,5 +1,6 @@
 package MotelManagement.dao;
 
+import MotelManagement.dto.ApplicationUser;
 import MotelManagement.dto.Guest;
 import MotelManagement.dto.Room;
 import MotelManagement.util.Generator;
@@ -312,6 +313,31 @@ public class RoomDao extends BaseDao {
         }
         
         return date;
+    }
+
+    public Room selectRoom(ApplicationUser user) {
+        String query = "SELECT * FROM rooms WHERE user_id = ?";
+        Room room = null;
+        
+        Object[] parameters = new Object[] { user.getId() };
+        
+        try {
+            ResultSet resultSet = dbConnection.select(query, parameters);
+            
+            if (resultSet.next()) {
+                room = new Room(
+                        resultSet.getString("id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("room_type_id"),
+                        resultSet.getString("user_id"));
+            }
+        }
+        catch (SQLException e) {
+            System.err.println(e.getMessage());
+            System.err.println(e.getCause());
+        }
+        
+        return room;
     }
 
 }

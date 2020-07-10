@@ -7,15 +7,20 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         
-        <link href="${pageContext.request.contextPath}/resources/css/site.css" type="text/css" rel="stylesheet">
+        <c:set var="context" value="${pageContext.request.contextPath}"/>
+        <link href="${context}/resources/css/site.css" type="text/css" rel="stylesheet">
+        
         <!--Add css/js file-->
         <!--thêm \${pageContext.request.contextPath} trước đường dẫn--> 
         <!--vd \${pageContext.request.contextPath}/resources/css/site.css-->
     </head>
     <body>
-        <c:choose>
+        <!--các biến role home lấy từ HomeServlet -->
+        <!-- do trong jsp tag lib chỉ có c:if không có c:else nên dùng cái này thay thế -->
+        <c:choose> 
             <c:when test="${role == 'Owner'}">
-                <c:forEach items="${rooms}" var="room">
+                <!-- giống câu lệnh foreach trong java -->
+                <c:forEach items="${rooms}" var="room"> 
                     <div class="card">
                         <h4>${room.getRoom().getName()}</h4>
                         <p>Số lượng người: ${room.getGuests().size()}</p>

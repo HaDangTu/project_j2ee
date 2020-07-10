@@ -35,6 +35,9 @@ public class HomeServlet extends HttpServlet {
             if (role.equals(Constant.OWNER)) {
                 //Get all rooms
                 List<Room> rooms = roomBus.getAll();
+                
+                //Lớp RoomGuest định nghĩa các thông tin về khách trọ của phòng
+                //Xem lớp này trong package dto để biết thêm
                 List<RoomGuest> roomGuests = new ArrayList<>();
                 
                 for (Room room : rooms) {
@@ -53,7 +56,7 @@ public class HomeServlet extends HttpServlet {
             }
             request.setAttribute("role", role);
             String path = "WEB-INF/views/home/index.jsp";
-            dispatcher = request.getRequestDispatcher(path);
+            dispatcher = request.getRequestDispatcher(path); //forward đến home page
         }
         else {
             dispatcher = request.getRequestDispatcher("/");

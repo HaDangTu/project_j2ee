@@ -19,6 +19,12 @@ public class RoomBus {
         return roomDao.nextId();
     }
     
+    public String isValidRoomName(String name) {
+        if (name.trim().length() < 1) {
+            return "Vui lòng nhập tên phòng";
+        }
+        return "";
+    }
     public boolean insert(Room room) {
         room.setId(nextId());
         return roomDao.insert(room);
@@ -66,12 +72,13 @@ public class RoomBus {
      * @return danh sách phòng
      */
     public List<Room> getNotFullRooms() {
-        List<Room> rooms = getRentedRooms();
+        List<Room> rooms = getAll();
         
-        for (Room room : rooms) {
-            String roomId = room.getId();
-            if (isFull(roomId))
+        for (int i = 0; i < rooms.size(); i++) {
+            Room room = rooms.get(i);
+            if (!isFull(room.getId())) {
                 rooms.remove(room);
+            }
         }
         
         return rooms;
@@ -80,10 +87,11 @@ public class RoomBus {
     public List<Room> getFullRooms() {
         List<Room> rooms = getRentedRooms();
         
-        for (Room room : rooms) {
-            String roomId = room.getId();
-            if (!isFull(roomId))
+        for (int i = 0; i < rooms.size(); i++) {
+            Room room = rooms.get(i);
+            if (isFull(room.getId())) {
                 rooms.remove(room);
+            }
         }
         
         return rooms;

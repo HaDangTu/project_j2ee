@@ -30,8 +30,9 @@ public class InvoiceDao extends BaseDao {
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        } finally {
+            dbConnection.closeConnection();
         }
-
         return id;
     }
 
@@ -111,8 +112,9 @@ public class InvoiceDao extends BaseDao {
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        } finally {
+            dbConnection.closeConnection();
         }
-
         return invoices;
     }
 
@@ -149,6 +151,8 @@ public class InvoiceDao extends BaseDao {
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }finally {
+            dbConnection.closeConnection();
         }
 
         return invoices;
@@ -177,6 +181,8 @@ public class InvoiceDao extends BaseDao {
         } catch (SQLException e) {
             System.err.println(e.getMessage());
             System.err.println(e.getCause());
+        }finally {
+            dbConnection.closeConnection();
         }
 
         return date;
@@ -184,16 +190,16 @@ public class InvoiceDao extends BaseDao {
 
     /**
      * Lấy hóa đơn tiền phòng trọ mới nhất của phòng
+     *
      * @param roomId mã phòng
      * @return hóa đơn
      */
-    
     public Invoice selectLastRoomInvoice(String roomId) {
         Invoice invoice = null;
 
         String query = "SELECT * FROM invoices WHERE room_id = ? "
                 + "AND content like '%Tiền phòng%'";
-        
+
         Object[] parameters = new Object[]{roomId};
 
         try {
@@ -214,13 +220,16 @@ public class InvoiceDao extends BaseDao {
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }finally {
+            dbConnection.closeConnection();
         }
-        
+
         return invoice;
     }
 
     /**
      * Lấy hóa đơn điện nước phòng trọ mới nhất của phòng
+     *
      * @param roomId mã phòng
      * @return hóa đơn
      */
@@ -231,7 +240,7 @@ public class InvoiceDao extends BaseDao {
 
         String query = "SELECT * FROM invoices WHERE room_id = ? "
                 + "AND content like '%Tiền điện%'";
-        
+
         try {
             ResultSet resultSet = dbConnection.select(query, parameters);
 
@@ -250,8 +259,10 @@ public class InvoiceDao extends BaseDao {
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        } finally {
+            dbConnection.closeConnection();
         }
-        
+
         return invoice;
     }
 }

@@ -29,6 +29,8 @@ public class RoomTypeDao extends BaseDao {
         }
         catch (SQLException e) {
             System.out.println(e.getMessage());
+        } finally {
+            dbConnection.closeConnection();
         }
 
         return id;
@@ -93,6 +95,8 @@ public class RoomTypeDao extends BaseDao {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             System.out.println(e.getCause());
+        } finally {
+            dbConnection.closeConnection();
         }
 
         return roomTypes;
@@ -124,6 +128,8 @@ public class RoomTypeDao extends BaseDao {
         }
         catch (SQLException e) {
             System.out.println(e.getMessage());
+        } finally {
+            dbConnection.closeConnection();
         }
         
         return roomType;

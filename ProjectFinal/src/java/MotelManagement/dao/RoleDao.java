@@ -28,6 +28,8 @@ public class RoleDao extends BaseDao {
         }
         catch (SQLException e) {
             System.out.println(e.getMessage());
+        } finally {
+            dbConnection.closeConnection();
         }
 
         return id;
@@ -83,6 +85,8 @@ public class RoleDao extends BaseDao {
         catch (SQLException e) {
             System.err.println(e.getMessage());
             System.err.println(e.getCause());
+        } finally {
+            dbConnection.closeConnection();
         }
         
         return roles;

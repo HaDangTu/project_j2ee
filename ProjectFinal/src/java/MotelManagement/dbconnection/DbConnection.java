@@ -1,6 +1,7 @@
 
 package MotelManagement.dbconnection;
 
+import java.io.Reader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,10 +10,11 @@ import java.sql.Statement;
 
 
 public class DbConnection {
+    
     private Connection connection;
     
     public DbConnection() {
-        connection = DataSource.getConnection();
+        
     }
     
     /**
@@ -22,7 +24,8 @@ public class DbConnection {
      * @return true nếu insert/update/delete thành công. Ngược lại, false
      */
     public boolean save(String sql, Object[] parameters) {
-        try {
+        connection = DataSource.getConnection();
+        try  {
             connection.setAutoCommit(false);
             
             PreparedStatement statement = connection.prepareStatement(sql);
@@ -38,6 +41,9 @@ public class DbConnection {
             System.out.print(e.getCause());
             return false;
         }
+        finally {
+            closeConnection();
+        }
         return true;
     }
     
@@ -50,6 +56,7 @@ public class DbConnection {
     public ResultSet select(String query, Object[] parameters) {
         ResultSet resultSet = null;
         
+        connection = DataSource.getConnection();
         try {
             if (parameters != null) {
                 connection.setAutoCommit(false);
@@ -72,5 +79,15 @@ public class DbConnection {
             System.out.print(e.getCause());
         }
         return resultSet;
+    }
+    
+    public void closeConnection() {
+        try {
+            if (connection != null) connection.close();
+        }
+        catch (SQLException e) {
+            System.err.println(e.getMessage());
+            System.err.println(e.getCause());
+        }
     }
 }

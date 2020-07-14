@@ -17,8 +17,9 @@ public class AccountDao extends BaseDao {
         String query = "SELECT id FROM accounts ORDER BY id DESC LIMIT 1;";
 
         String id = "";
-        ResultSet resultSet = dbConnection.select(query, null);
+        
         try {
+            ResultSet resultSet = dbConnection.select(query, null);
             if (resultSet.next()) {
                 //Get last id in table
                 id = resultSet.getString("id");
@@ -27,33 +28,38 @@ public class AccountDao extends BaseDao {
             } else {
                 id = "U00001";
             }
+            
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-
+        finally {
+            dbConnection.closeConnection();
+        }
         return id;
     }
 
     public boolean insert(ApplicationUser user) {
-        String sql = "INSERT INTO accounts (id, username, password) VALUES "
-                + "(?, ?, ?);";
+        String sql = "INSERT INTO accounts (id, username, password, role_id) VALUES "
+                + "(?, ?, ?, ?);";
 
         Object[] parameters = new Object[]{
             user.getId(),
             user.getUsername(),
-            user.getPassword()
+            user.getPassword(),
+            user.getRoleId()
         };
 
         return dbConnection.save(sql, parameters);
     }
 
     public boolean update(ApplicationUser user) {
-        String sql = "UPDATE accounts SET username = ?, password = ? WHERE "
+        String sql = "UPDATE accounts SET username = ?, password = ?, role_id = ? WHERE "
                 + "id = ?;";
 
         Object[] parameters = new Object[]{
             user.getUsername(),
             user.getPassword(),
+            user.getRoleId(),
             user.getId()
         };
 
@@ -82,7 +88,7 @@ public class AccountDao extends BaseDao {
                     user.setId(resultSet.getString("id"));
                     user.setUsername(resultSet.getString("username"));
                     user.setPassword(resultSet.getString("password"));
-
+                    user.setRoleId(resultSet.getString("role_id"));
                     users.add(user);
                 }
             }
@@ -90,7 +96,9 @@ public class AccountDao extends BaseDao {
             System.err.println(e.getMessage());
             System.err.println(e.getCause());
         }
-
+        finally {
+            dbConnection.closeConnection();
+        }
         return users;
     }
 
@@ -114,12 +122,15 @@ public class AccountDao extends BaseDao {
                 user.setId(resultSet.getString("id"));
                 user.setUsername(resultSet.getString("username"));
                 user.setPassword(resultSet.getString("password"));
+                user.setRoleId(resultSet.getString("role_id"));
             }
         } catch (SQLException e) {
             System.err.println(e.getMessage());
             System.err.println(e.getCause());
         }
-
+        finally {
+            dbConnection.closeConnection();
+        }
         return user;
     }
     
@@ -146,6 +157,9 @@ public class AccountDao extends BaseDao {
         } catch (SQLException e) {
             System.err.println(e.getMessage());
             System.err.println(e.getCause());
+        }
+        finally {
+            dbConnection.closeConnection();
         }
         return role;
     }

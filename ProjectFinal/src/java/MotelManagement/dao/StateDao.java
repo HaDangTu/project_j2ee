@@ -29,6 +29,8 @@ public class StateDao extends BaseDao{
         }
         catch (SQLException e) {
             System.out.println(e.getMessage());
+        } finally {
+            dbConnection.closeConnection();
         }
 
         return id;
@@ -77,7 +79,34 @@ public class StateDao extends BaseDao{
         catch (SQLException e) {
             System.out.println(e.getMessage());
             System.out.print(e.getCause());
+        } finally {
+            dbConnection.closeConnection();
         }
         return states;
+    }
+
+    public State selectState(String stateId) {
+        State state = null;
+        String query = "SELECT * FROM states WHERE id = ?;";
+        
+        Object[] parameters = new Object[] { stateId };
+        
+        ResultSet resultSet = dbConnection.select(query, parameters);
+        try {
+            if (resultSet != null) {
+                if (resultSet.next()) {
+                    state = new State();
+                    state.setId(resultSet.getString("id"));
+                    state.setName(resultSet.getString("name"));
+                }
+            }
+        }
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+            System.out.println(e.getCause());
+        } finally {
+            dbConnection.closeConnection();
+        }
+        return state;
     }
 }

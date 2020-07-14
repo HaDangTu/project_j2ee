@@ -7,7 +7,7 @@ public class Guest {
     private String name;
     private Date birthday;
     private String genderId;
-    private String indentityNumber;
+    private String identityNumber;
     private String homeTown;
     private String occupation;
     private Date startDate;
@@ -22,7 +22,7 @@ public class Guest {
         this.name = name;
         this.birthday = birthday;
         this.genderId = genderId;
-        this.indentityNumber = indentityNumber;
+        this.identityNumber = indentityNumber;
         this.homeTown = homeTown;
         this.occupation = occupation;
         this.startDate = startDate;
@@ -62,12 +62,12 @@ public class Guest {
         this.genderId = genderId;
     }
 
-    public String getIndentityNumber() {
-        return indentityNumber;
+    public String getIdentityNumber() {
+        return identityNumber;
     }
 
-    public void setIndentityNumber(String indentityNumber) {
-        this.indentityNumber = indentityNumber;
+    public void setIdentityNumber(String indentityNumber) {
+        this.identityNumber = indentityNumber;
     }
 
     public String getHomeTown() {
@@ -112,7 +112,7 @@ public class Guest {
 
     @Override
     public String toString() {
-        return "Guest{" + "id=" + id + ", name=" + name + ", birthday=" + birthday + ", genderId=" + genderId + ", indentityNumber=" + indentityNumber + ", homeTown=" + homeTown + ", occupation=" + occupation + ", startDate=" + startDate + ", stateId=" + stateId + ", roomId=" + roomId + '}';
+        return "Guest{" + "id=" + id + ", name=" + name + ", birthday=" + birthday + ", genderId=" + genderId + ", indentityNumber=" + identityNumber + ", homeTown=" + homeTown + ", occupation=" + occupation + ", startDate=" + startDate + ", stateId=" + stateId + ", roomId=" + roomId + '}';
     }
     
     

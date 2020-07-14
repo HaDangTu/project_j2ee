@@ -32,4 +32,8 @@ public class GenderBus {
     public List<Gender> getAll() {
         return genderDao.selectAll();
     }
+    
+    public Gender getGender(String genderId) {
+        return genderDao.selectGender(genderId);
+    }
 }

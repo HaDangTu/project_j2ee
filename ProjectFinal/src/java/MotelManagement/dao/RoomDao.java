@@ -32,6 +32,8 @@ public class RoomDao extends BaseDao {
         }
         catch (SQLException e) {
             System.out.println(e.getMessage());
+        } finally {
+            dbConnection.closeConnection();
         }
 
         return id;
@@ -93,6 +95,8 @@ public class RoomDao extends BaseDao {
         } catch (SQLException e) {
             System.err.println(e.getMessage());
             System.err.println(e.getCause());
+        } finally {
+            dbConnection.closeConnection();
         }
 
         return rooms;
@@ -126,6 +130,8 @@ public class RoomDao extends BaseDao {
         } catch (SQLException e) {
             System.err.println(e.getMessage());
             System.err.println(e.getCause());
+        } finally {
+            dbConnection.closeConnection();
         }
 
         return rooms;
@@ -158,10 +164,12 @@ public class RoomDao extends BaseDao {
         } catch (SQLException e) {
             System.err.println(e.getMessage());
             System.err.println(e.getCause());
+        } finally {
+            dbConnection.closeConnection();
         }
 
         return rooms;
-    }
+    } 
     
     /**
      * Lấy số lượng người tối đa trong phòng.
@@ -186,6 +194,8 @@ public class RoomDao extends BaseDao {
         catch (SQLException e) {
             System.err.println(e.getMessage());
             System.err.println(e.getCause());
+        } finally {
+            dbConnection.closeConnection();
         }
         
         return max;
@@ -213,7 +223,7 @@ public class RoomDao extends BaseDao {
                     guest.setName(resultSet.getString("name"));
                     guest.setBirthday(resultSet.getDate("birthday"));
                     guest.setGenderId(resultSet.getString("gender_id"));
-                    guest.setIndentityNumber(resultSet.getString("identity_number"));
+                    guest.setIdentityNumber(resultSet.getString("identity_number"));
                     guest.setHomeTown(resultSet.getString("home_town"));
                     guest.setOccupation(resultSet.getString("occupation"));
                     guest.setRoomId(resultSet.getString("room_id"));
@@ -224,6 +234,8 @@ public class RoomDao extends BaseDao {
         } catch (SQLException e) {
             System.err.println(e.getMessage());
             System.err.println(e.getCause());
+        } finally {
+            dbConnection.closeConnection();
         }
 
         return guests;
@@ -255,6 +267,8 @@ public class RoomDao extends BaseDao {
         }
         catch (SQLException e) {
             System.out.println(e.getMessage());
+        } finally {
+            dbConnection.closeConnection();
         }
         
         return room;
@@ -283,10 +297,12 @@ public class RoomDao extends BaseDao {
         catch (SQLException e) {
             System.err.println(e.getMessage());
             System.err.println(e.getCause());
+        } finally {
+            dbConnection.closeConnection();
         }
         
         return money;
-    }
+    } 
     
     /**
      * Lấy ngày bắt đầu thuê của phòng = ngày bắt đầu ở của khách trọ
@@ -310,6 +326,8 @@ public class RoomDao extends BaseDao {
         catch (SQLException e) {
             System.err.println(e.getMessage());
             System.err.println(e.getCause());
+        } finally {
+            dbConnection.closeConnection();
         }
         
         return date;
@@ -335,6 +353,8 @@ public class RoomDao extends BaseDao {
         catch (SQLException e) {
             System.err.println(e.getMessage());
             System.err.println(e.getCause());
+        } finally {
+            dbConnection.closeConnection();
         }
         
         return room;

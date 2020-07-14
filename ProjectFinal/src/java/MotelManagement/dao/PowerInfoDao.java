@@ -27,6 +27,8 @@ public class PowerInfoDao extends BaseDao {
         }
         catch (SQLException e) {
             System.out.println(e.getMessage());
+        }finally {
+            dbConnection.closeConnection();
         }
 
         return id;
@@ -92,6 +94,8 @@ public class PowerInfoDao extends BaseDao {
         }
         catch (SQLException e) {
             System.out.println(e.getMessage());
+        } finally {
+            dbConnection.closeConnection();
         }
         
         return electricIndex;
@@ -119,6 +123,8 @@ public class PowerInfoDao extends BaseDao {
         }
         catch (SQLException e) {
             System.out.println(e.getMessage());
+        } finally {
+            dbConnection.closeConnection();
         }
         
         return waterIndex;

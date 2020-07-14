@@ -6,7 +6,8 @@ public class ApplicationUser {
     private String id;
     private String username;
     private String password;
-
+    private String roleId;
+    
     public ApplicationUser() {
     }
 
@@ -40,6 +41,15 @@ public class ApplicationUser {
         this.password = password;
     }
 
+    public String getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
+    }
+
+    
     @Override
     public String toString() {
         return "ApplicationUser{" + "id=" + id + ", username=" + username + ", password=" + password + '}';

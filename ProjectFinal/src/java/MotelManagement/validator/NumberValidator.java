@@ -23,24 +23,27 @@ public class NumberValidator extends Validator{
 
     
     @Override
-    public boolean isValid(String string) {
+    public String isValid(String string) {
         if (string.equals(""))
-            return false;
+            return "Không được trống";
 
-        if (super.isValid(string)) {
+        matcher = pattern.matcher(string);
+        
+        if (!matcher.find()) {
             try {
                 NumberFormat numberFormat = NumberFormat.getInstance();
                 double num = numberFormat.parse(string).doubleValue();
 
                 if (num < min || num > max)
-                    return false;
+                    return "Số nằm trong khoảng [" + max + ", " + min + "]";
             }
             catch (Exception e) {
-                return false;
+                return "Số không hợp lệ";
             }
-            return true;
+            return "";
         }
-        else return false;
+        else 
+            return "Số không chứa kí tự đặc biệt";
     }
     
     

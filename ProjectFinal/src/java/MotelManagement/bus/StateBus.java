@@ -31,4 +31,8 @@ public class StateBus {
     public List<State> getAll() {
         return stateDao.selectAll();
     }
+    
+    public State getState(String stateId) {
+        return stateDao.selectState(stateId);
+    }
 }

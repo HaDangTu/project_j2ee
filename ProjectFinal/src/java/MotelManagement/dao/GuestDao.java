@@ -24,13 +24,14 @@ public class GuestDao extends BaseDao {
                 id = resultSet.getString("id");
                 //Generate next id
                 id = Generator.nextId("G", id, false);
+            } else {
+                id = "G000001";
             }
-            else id = "G000001";
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
+        } finally {
+            dbConnection.closeConnection();
         }
-
         return id;
     }
 
@@ -44,7 +45,7 @@ public class GuestDao extends BaseDao {
             guest.getName(),
             guest.getBirthday(),
             guest.getGenderId(),
-            guest.getIndentityNumber(),
+            guest.getIdentityNumber(),
             guest.getHomeTown(),
             guest.getOccupation(),
             guest.getStartDate(),
@@ -64,7 +65,7 @@ public class GuestDao extends BaseDao {
             guest.getName(),
             guest.getBirthday(),
             guest.getGenderId(),
-            guest.getIndentityNumber(),
+            guest.getIdentityNumber(),
             guest.getHomeTown(),
             guest.getOccupation(),
             guest.getStartDate(),
@@ -100,19 +101,21 @@ public class GuestDao extends BaseDao {
                     guest.setName(resultSet.getString("name"));
                     guest.setBirthday(resultSet.getDate("birthday"));
                     guest.setGenderId(resultSet.getString("gender_id"));
-                    guest.setIndentityNumber(resultSet.getString("identity_number"));
+                    guest.setIdentityNumber(resultSet.getString("identity_number"));
                     guest.setHomeTown(resultSet.getString("home_town"));
                     guest.setOccupation(resultSet.getString("occupation"));
                     guest.setRoomId(resultSet.getString("room_id"));
-
+                    guest.setStateId(resultSet.getString("state_id"));
+                    guest.setStartDate(resultSet.getDate("start_date"));
                     guests.add(guest);
                 }
             }
         } catch (SQLException e) {
             System.err.println(e.getMessage());
             System.err.print(e.getCause());
+        } finally {
+            dbConnection.closeConnection();
         }
-
         return guests;
     }
 
@@ -137,15 +140,18 @@ public class GuestDao extends BaseDao {
                 guest.setName(resultSet.getString("name"));
                 guest.setBirthday(resultSet.getDate("birthday"));
                 guest.setGenderId(resultSet.getString("gender_id"));
-                guest.setIndentityNumber(resultSet.getString("indentity_number"));
+                guest.setIdentityNumber(resultSet.getString("identity_number"));
                 guest.setHomeTown(resultSet.getString("home_town"));
                 guest.setOccupation(resultSet.getString("occupation"));
                 guest.setRoomId(resultSet.getString("room_id"));
+                guest.setStateId(resultSet.getString("state_id"));
+                guest.setStartDate(resultSet.getDate("start_date"));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        } finally {
+            dbConnection.closeConnection();
         }
-
         return guest;
     }
 }

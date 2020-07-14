@@ -27,6 +27,8 @@ public class ParameterDao extends BaseDao{
         }
         catch (SQLException e) {
             System.out.println(e.getMessage());
+        }finally {
+            dbConnection.closeConnection();
         }
 
         return id;
@@ -82,6 +84,8 @@ public class ParameterDao extends BaseDao{
         }
         catch (SQLException e) {
             System.out.println(e.getMessage());
+        } finally {
+            dbConnection.closeConnection();
         }
         
         return value;

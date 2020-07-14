@@ -27,11 +27,19 @@ public class NameValidator extends Validator{
 
     
     @Override
-    public boolean isValid(String string) {
+    public String isValid(String string) {
+        if (string == null) {
+            return "Vui lòng nhập tên";
+        }
         int length = string.trim().length();
         if (length < minLength || length > maxLength)
-            return false;
-        return super.isValid(string);
+            return "Tên quá ngắn hoặc quá dài";
+        
+        matcher = pattern.matcher(string);
+        if (matcher.find()) {
+            return "Tên không chứa số hoặc các kí tự đặc biệt";
+        }
+        return "";
     }
     
     

@@ -30,7 +30,9 @@ public class GenderDao extends BaseDao{
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-
+        finally {
+            dbConnection.closeConnection();
+        }
         return id;
     }
     
@@ -81,6 +83,35 @@ public class GenderDao extends BaseDao{
             System.out.println(e.getMessage());
             System.out.print(e.getCause());
         }
+        finally {
+            dbConnection.closeConnection();
+        }
         return genders;
+    }
+
+    public Gender selectGender(String genderId) {
+        Gender gender = null;
+        
+        String query = "SELECT * FROM genders WHERE id = ?;";
+        Object[] parameters = new Object[] { genderId };
+        
+        ResultSet resultSet = dbConnection.select(query, parameters);
+        
+        try {
+            if (resultSet != null) {
+                if (resultSet.next())
+                    gender = new Gender(
+                            resultSet.getString("id"), 
+                            resultSet.getString("name"));
+            }
+        }
+        catch (SQLException e) {
+            System.err.println(e.getMessage());
+            System.err.println(e.getCause());
+        }
+        finally {
+            dbConnection.closeConnection();
+        }
+        return gender;
     }
 }

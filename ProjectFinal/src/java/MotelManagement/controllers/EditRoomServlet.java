@@ -64,6 +64,7 @@ public class EditRoomServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         String roomId = request.getParameter("room_id");
         String roomName = request.getParameter("name");
         String roomType = request.getParameter("room-type");

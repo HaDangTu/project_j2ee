@@ -15,8 +15,10 @@ public abstract class Validator {
         this.regex = regex;
         
         pattern = Pattern.compile(regex);
-        
     }
     
-    public abstract String isValid(String string);
+    public boolean isValid(String string) {
+        matcher = pattern.matcher(string);
+        return !matcher.find();
+    }
 }

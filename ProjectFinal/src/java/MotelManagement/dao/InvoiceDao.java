@@ -165,18 +165,18 @@ public class InvoiceDao extends BaseDao {
      * @param month
      * @return
      */
-    public Date selectDateInvoice(String roomId, int month) {
+    public Date selectDateInvoice(String roomId, int month, int year) {
         Date date = null;
-        String query = "SELECT date FROM invoices WHERE roomId = ? AND "
-                + "MONTH(date) = ?";
+        String query = "SELECT date FROM invoices WHERE room_id = ? AND "
+                + "MONTH(date) = ? AND YEAR(date) = ?";
 
-        Object[] parameters = new Object[]{roomId, month};
+        Object[] parameters = new Object[]{roomId, month, year};
 
         try {
             ResultSet resultSet = dbConnection.select(query, parameters);
 
             if (resultSet.next()) {
-                date = resultSet.getDate("start_date");
+                date = resultSet.getDate("date");
             }
         } catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -240,6 +240,74 @@ public class InvoiceDao extends BaseDao {
 
         String query = "SELECT * FROM invoices WHERE room_id = ? "
                 + "AND content like '%Tiền điện%'";
+
+        try {
+            ResultSet resultSet = dbConnection.select(query, parameters);
+
+            if (resultSet != null) {
+                while (resultSet.next()) {
+                    invoice = new Invoice();
+                    invoice.setId(resultSet.getString("id"));
+                    invoice.setRoomId(resultSet.getString("room_id"));
+                    invoice.setDate(resultSet.getDate("date"));
+                    invoice.setCollectionDate(resultSet.getDate("collection_date"));
+                    invoice.setContent(resultSet.getString("content"));
+                    invoice.setDebt(resultSet.getDouble("debt"));
+                    invoice.setProceeds(resultSet.getDouble("proceeds"));
+                    invoice.setExcessCash(resultSet.getDouble("excess_cash"));
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            dbConnection.closeConnection();
+        }
+
+        return invoice;
+    }
+
+    public Invoice selectRoomInvoice(String roomId, int month, int year) {
+        Invoice invoice = null;
+
+        Object[] parameters = new Object[]{roomId, month, year};
+
+        String query = "SELECT * FROM invoices WHERE room_id = ? "
+                + "AND content like '%Tiền phòng%' "
+                + "AND MONTH(date) = ? AND YEAR(date) = ?;";
+
+        try {
+            ResultSet resultSet = dbConnection.select(query, parameters);
+
+            if (resultSet != null) {
+                while (resultSet.next()) {
+                    invoice = new Invoice();
+                    invoice.setId(resultSet.getString("id"));
+                    invoice.setRoomId(resultSet.getString("room_id"));
+                    invoice.setDate(resultSet.getDate("date"));
+                    invoice.setCollectionDate(resultSet.getDate("collection_date"));
+                    invoice.setContent(resultSet.getString("content"));
+                    invoice.setDebt(resultSet.getDouble("debt"));
+                    invoice.setProceeds(resultSet.getDouble("proceeds"));
+                    invoice.setExcessCash(resultSet.getDouble("excess_cash"));
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            dbConnection.closeConnection();
+        }
+
+        return invoice;
+    }
+
+    public Invoice selectPowerInvoice(String roomId, int month, int year) {
+        Invoice invoice = null;
+
+        Object[] parameters = new Object[]{roomId, month, year};
+
+        String query = "SELECT * FROM invoices WHERE room_id = ? "
+                + "AND content like '%Tiền điện%' "
+                + "AND MONTH(date) = ? AND YEAR(date) = ?;";
 
         try {
             ResultSet resultSet = dbConnection.select(query, parameters);

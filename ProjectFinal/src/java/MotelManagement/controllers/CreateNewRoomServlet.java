@@ -59,7 +59,7 @@ public class CreateNewRoomServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        request.setCharacterEncoding("UTF-8");
         String roomName = request.getParameter("name");
         String roomType = request.getParameter("room-type");
         boolean hasError = false;

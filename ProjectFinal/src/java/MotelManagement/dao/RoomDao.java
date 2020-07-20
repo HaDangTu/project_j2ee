@@ -360,4 +360,159 @@ public class RoomDao extends BaseDao {
         return room;
     }
 
+    public int countRentedNumber(String roomId, int month1, int month2, int year) {
+        int count = 0;
+        String query;
+        query = "SELECT COUNT(room_id) AS rented_num FROM guest WHERE room_id = ? "
+                + "AND MONTH(start_date) BETWEEN ? AND ? AND YEAR(start_date) = ?;";
+      
+        Object[] parameters = new Object[] { roomId, month1, month2, year };
+        
+        try {
+            ResultSet resultSet = dbConnection.select(query, parameters);
+            if (resultSet != null) {
+                if (resultSet.next()) {
+                    count = resultSet.getInt("rented_num");
+                }
+            }
+        }
+        catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        finally {
+            dbConnection.closeConnection();
+        }
+        
+        return count;
+    }
+    
+    public int countRentedNumber(String roomId, int month, int year) {
+        int count = 0;
+        String query;
+        query = "SELECT COUNT(room_id) AS rented_num FROM guest WHERE room_id = ? "
+                + "AND MONTH(start_date) = ? AND YEAR(start_date) = ?;";
+      
+        Object[] parameters = new Object[] { roomId, month, year };
+        
+        try {
+            ResultSet resultSet = dbConnection.select(query, parameters);
+            if (resultSet != null) {
+                if (resultSet.next()) {
+                    count = resultSet.getInt("rented_num");
+                }
+            }
+        }
+        catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        finally {
+            dbConnection.closeConnection();
+        }
+        
+        return count;
+    }
+    
+    public int countRentedNumber(String roomId, Date startDate, Date endDate) {
+        int count = 0;
+        String query;
+        query = "SELECT COUNT(room_id) AS rented_num FROM guest WHERE room_id = ? "
+                + "AND DATE(start_date) BETWEEN ? AND ?;";
+      
+        Object[] parameters = new Object[] { roomId, startDate, endDate };
+        
+        try {
+            ResultSet resultSet = dbConnection.select(query, parameters);
+            if (resultSet != null) {
+                if (resultSet.next()) {
+                    count = resultSet.getInt("rented_num");
+                }
+            }
+        }
+        catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        finally {
+            dbConnection.closeConnection();
+        }
+        
+        return count;
+    }
+    
+    public double selectSumMoney(String roomId, int startMonth, int endMonth, int year) {
+        double sumMoney = 0;
+        String query;
+        query = "SELECT SUM(proceeds - excess_cash) as sum_money FROM invoices "
+                + "WHERE room_id = ? AND MONTH(collection_date) BETWEEN ? AND ? "
+                + "AND YEAR(collection_date) = ? AND content LIKE '%phòng%'";
+      
+        Object[] parameters = new Object[] { roomId, startMonth, endMonth, year };
+        
+        try {
+            ResultSet resultSet = dbConnection.select(query, parameters);
+            if (resultSet != null) {
+                if (resultSet.next()) {
+                    sumMoney = resultSet.getDouble("sum_money");
+                }
+            }
+        }
+        catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        finally {
+            dbConnection.closeConnection();
+        }
+        return sumMoney;
+    }
+    
+    public double selectSumMoney(String roomId, int month, int year) {
+        double sumMoney = 0;
+        String query;
+        query = "SELECT SUM(proceeds - excess_cash) as sum_money FROM invoices "
+                + "WHERE room_id = ? AND MONTH(collection_date) = ? "
+                + "AND YEAR(collection_date) = ? AND content LIKE '%phòng%'";
+      
+        Object[] parameters = new Object[] { roomId, month, year };
+        
+        try {
+            ResultSet resultSet = dbConnection.select(query, parameters);
+            if (resultSet != null) {
+                if (resultSet.next()) {
+                    sumMoney = resultSet.getDouble("sum_money");
+                }
+            }
+        }
+        catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        finally {
+            dbConnection.closeConnection();
+        }
+        return sumMoney;
+    }
+    
+    public double selectSumMoney(String roomId, Date startDate, Date endDate) {
+        double sumMoney = 0;
+        String query;
+        query = "SELECT SUM(proceeds - excess_cash) as sum_money FROM invoices "
+                + "WHERE room_id = ? AND DATE(collection_date) BETWEEN ? AND ? "
+                + "AND content LIKE '%phòng%'";
+      
+        Object[] parameters = new Object[] { roomId, startDate };
+        
+        try {
+            ResultSet resultSet = dbConnection.select(query, parameters);
+            if (resultSet != null) {
+                if (resultSet.next()) {
+                    sumMoney = resultSet.getDouble("sum_money");
+                }
+            }
+        }
+        catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        finally {
+            dbConnection.closeConnection();
+        }
+        return sumMoney;
+    }
 }

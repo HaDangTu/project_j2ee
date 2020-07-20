@@ -1,6 +1,7 @@
 package MotelManagement.bus;
 
 import MotelManagement.dao.InvoiceDao;
+import MotelManagement.dao.RoomDao;
 import MotelManagement.dto.Invoice;
 import java.util.Calendar;
 import java.util.Date;
@@ -9,9 +10,11 @@ import java.util.List;
 public class InvoiceBus {
 
     private InvoiceDao invoiceDao;
-
+    private RoomDao roomDao;
+    
     public InvoiceBus() {
         invoiceDao = new InvoiceDao();
+        roomDao = new RoomDao();
     }
 
     public String nextId() {
@@ -57,8 +60,8 @@ public class InvoiceBus {
      * @return 
      */
     
-    public Date getDateInvoice(String roomId, int month) {
-        return invoiceDao.selectDateInvoice(roomId, month);
+    public Date getDateInvoice(String roomId, int month, int year) {
+        return invoiceDao.selectDateInvoice(roomId, month, year);
     }
     
     /**
@@ -67,19 +70,24 @@ public class InvoiceBus {
      * @param month tháng
      * @return 
      */
-    public Date calculateFromDate(String roomId, int month) {
-        return getDateInvoice(roomId, month == 1 ? 12 : month - 1);
+    public Date calculateFromDate(String roomId, int month, int year) {
+        Date startDate = roomDao.selectStartDate(roomId);
+        
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(startDate);
+        calendar.set(Calendar.MONTH, month - 1);
+        calendar.set(Calendar.YEAR, year);
+        
+        return calendar.getTime();
     }
     
     /**
      * Tính ngày kết thúc hóa đơn
      * @param roomId mã phòng
-     * @param month tháng
+     * @param fromDate tháng
      * @return 
      */
-    public Date calculateToDate(String roomId, int month) {
-        Date fromDate = calculateFromDate(roomId, month);
-        
+    public Date calculateToDate(Date fromDate) { 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(fromDate);
         
@@ -104,5 +112,13 @@ public class InvoiceBus {
      */
     public Invoice getLastPowerInvoice(String roomId) {
         return invoiceDao.selectLastPowerInvoice(roomId);
+    }
+    
+    public Invoice getRoomInvoice(String roomId, int month, int year) {
+        return invoiceDao.selectRoomInvoice(roomId, month, year);
+    }
+    
+    public Invoice getPowerInvoice(String roomId, int month, int year) {
+        return invoiceDao.selectPowerInvoice(roomId, month, year);
     }
 }

@@ -59,7 +59,7 @@ public class HomeServlet extends HttpServlet {
             dispatcher = request.getRequestDispatcher(path); //forward đến home page
         }
         else {
-            dispatcher = request.getRequestDispatcher("/Login");
+            dispatcher = request.getRequestDispatcher("/");
         }
         
         dispatcher.forward(request, response);

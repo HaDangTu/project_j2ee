@@ -147,4 +147,73 @@ public class RoomBus {
     public Date getStartDate(String roomId) {
         return roomDao.selectStartDate(roomId);
     }
+    
+    /**
+     * Lấy số lượt thuê phòng theo quý
+     * @param roomId mã phòng
+     * @param month1 tháng đầu quý
+     * @param month2 tháng cuối quý
+     * @param year năm 
+     * @return 
+     */
+    public int getRentedNumberByQuarter(String roomId, int month1, int month2, int year) {
+        return roomDao.countRentedNumber(roomId, month1, month2, year);
+    }
+    
+    /**
+     * Lấy số lượt thuê phòng theo tháng
+     * @param roomId mã phòng
+     * @param month tháng 
+     * @param year năm
+     * @return 
+     */
+    public int getRentedNumberByMonth(String roomId, int month, int year) {
+        return roomDao.countRentedNumber(roomId, month, year);
+    }
+    
+    /**
+     * Lấy số lượt thuê phòng theo khoảng thời gian bất kì (từ ngày...đến ngày....)
+     * @param roomId mã phòng
+     * @param fromDate từ ngày
+     * @param toDate đến ngày
+     * @return 
+     */
+    public int getRentedNumberByDate(String roomId, Date fromDate, Date toDate) {
+        return roomDao.countRentedNumber(roomId, fromDate, toDate);
+    }
+    
+    
+    /**
+     * Lấy tổng số tiền thu được theo quý
+     * @param roomId mã phòng
+     * @param startMonth tháng đầu quý
+     * @param endMonth tháng cuối quý
+     * @param year năm
+     * @return 
+     */
+    public double getSumMoneyByQuarter(String roomId, int startMonth, int endMonth, int year) {
+        return roomDao.selectSumMoney(roomId, startMonth, endMonth, year);
+    }
+    
+    /**
+     * Lấy tổng số tiền phòng thu được theo tháng
+     * @param roomId mã phòng
+     * @param month tháng
+     * @param year năm
+     * @return 
+     */
+    public double getSumMoneyByMonth(String roomId, int month, int year) {
+        return roomDao.selectSumMoney(roomId, month, year);
+    }
+    
+    /**
+     * Lấy tổng số tiền phòng thu được theo khoảng thời gian (từ ngày...đến ngày)
+     * @param roomId mã phòng
+     * @param fromDate từ ngày
+     * @param toDate đến ngày
+     * @return 
+     */
+    public double getSumMoneyByDate(String roomId, Date fromDate, Date toDate) {
+        return roomDao.selectSumMoney(roomId, fromDate, toDate);
+    }
 }

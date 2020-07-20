@@ -163,4 +163,31 @@ public class AccountDao extends BaseDao {
         }
         return role;
     }
+
+    public ApplicationUser selectUserById(String userId) {
+        ApplicationUser user = null;
+
+        String query = "SELECT * FROM accounts WHERE id = ?";
+
+        Object[] parameters = new Object[]{ userId };
+
+        try {
+            ResultSet resultSet = dbConnection.select(query, parameters);
+
+            if (resultSet.next()) {
+                user = new ApplicationUser();
+                user.setId(resultSet.getString("id"));
+                user.setUsername(resultSet.getString("username"));
+                user.setPassword(resultSet.getString("password"));
+                user.setRoleId(resultSet.getString("role_id"));
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            System.err.println(e.getCause());
+        }
+        finally {
+            dbConnection.closeConnection();
+        }
+        return user;
+    }
 }

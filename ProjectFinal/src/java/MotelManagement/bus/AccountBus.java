@@ -15,6 +15,24 @@ public class AccountBus {
        
     }
     
+    public String isValidUsername(String username) {
+        if (username.trim().length() < 1) {
+            return "Vui lòng nhập username";
+        }
+        
+        return "";
+    }
+    
+    public String isValidPassword(String password, String confirmPass) {
+        if (password.trim().length() < 1) {
+            return "Vui lòng nhập password";
+        }
+        else if (!password.equals(confirmPass)) {
+            return "Vui lòng kiểm tra password đã nhập";
+        }
+        return "";
+    }
+    
     public String nextId() {
         return accountDao.nextId();
     }
@@ -45,6 +63,9 @@ public class AccountBus {
         return accountDao.selectUserByUsername(username);
     }
     
+    public ApplicationUser getUserById(String userId) {
+        return accountDao.selectUserById(userId);
+    }
     /**
      * Kiểm tra user có hợp lệ để đăng nhập vào hệ thống hay không
      * @param user user có username hợp lệ

@@ -15,7 +15,7 @@ public class DataSource {
         config.setUsername(DbConfiguration.USER_NAME);
         config.setPassword(DbConfiguration.PASSWORD);
         config.setDriverClassName(DbConfiguration.DB_DRIVER);
-//        config.setMinimumIdle(DbConfiguration.MIN_POOL_SIZE);
+        config.setMinimumIdle(DbConfiguration.MIN_POOL_SIZE);
         config.setMaximumPoolSize(DbConfiguration.MAX_POOL_SIZE);
         config.addDataSourceProperty( "cachePrepStmts" , "true" );
         config.addDataSourceProperty( "prepStmtCacheSize" , "250" );

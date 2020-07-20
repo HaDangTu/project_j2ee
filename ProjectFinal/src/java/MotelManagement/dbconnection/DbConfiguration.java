@@ -11,5 +11,5 @@ public class DbConfiguration {
     public static final int MAX_POOL_SIZE = 20;
     //jdbc:mysql://localhost:3306/homework
     public static final String CONNECTION_URL = "jdbc:mysql://localhost:" +
-            PORT + "/" + DB_NAME + "?useSSL=false";
+            PORT + "/" + DB_NAME + "?allowPublicKeyRetrieval=true&useSSL=false";
 }

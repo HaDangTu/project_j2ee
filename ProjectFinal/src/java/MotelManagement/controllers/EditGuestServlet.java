@@ -5,12 +5,16 @@
  */
 package MotelManagement.controllers;
 
+import MotelManagement.bus.AccountBus;
 import MotelManagement.bus.GenderBus;
 import MotelManagement.bus.GuestBus;
+import MotelManagement.bus.RoleBus;
 import MotelManagement.bus.RoomBus;
+import MotelManagement.dto.ApplicationUser;
 import MotelManagement.dto.Gender;
 import MotelManagement.dto.Guest;
 import MotelManagement.dto.Room;
+import MotelManagement.util.Constant;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
@@ -22,6 +26,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -32,22 +37,39 @@ public class EditGuestServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String guestId = request.getParameter("guest_id");
+        HttpSession session = request.getSession();
+        ApplicationUser user = (ApplicationUser) session.getAttribute("user");
 
-        GuestBus guestBus = new GuestBus();
-        RoomBus roomBus = new RoomBus();
-        GenderBus genderBus = new GenderBus();
+        RequestDispatcher dispatcher;
+        if (user != null) {
+            AccountBus accountBus = new AccountBus();
+            String role = accountBus.getRole(user);
 
-        Guest guest = guestBus.getGuest(guestId);
-        List<Room> rooms = roomBus.getAll();
-        List<Gender> genders = genderBus.getAll();
+            if (role.equals(Constant.OWNER)) {
+                RoleBus roleBus = new RoleBus();
+                String guestId = request.getParameter("guest_id");
 
-        request.setAttribute("rooms", rooms);
-        request.setAttribute("genders", genders);
-        request.setAttribute("guest", guest);
+                GuestBus guestBus = new GuestBus();
+                RoomBus roomBus = new RoomBus();
+                GenderBus genderBus = new GenderBus();
 
-        String path = "WEB-INF/views/guest/edit.jsp";
-        RequestDispatcher dispatcher = request.getRequestDispatcher(path);
+                Guest guest = guestBus.getGuest(guestId);
+                List<Room> rooms = roomBus.getAll();
+                List<Gender> genders = genderBus.getAll();
+
+                request.setAttribute("rooms", rooms);
+                request.setAttribute("genders", genders);
+                request.setAttribute("guest", guest);
+
+                String path = "WEB-INF/views/guest/edit.jsp";
+                dispatcher = request.getRequestDispatcher(path);
+                
+            } else {
+                dispatcher = request.getRequestDispatcher("/Login");
+            }
+        } else {
+            dispatcher = request.getRequestDispatcher("/Login");
+        }
         dispatcher.forward(request, response);
     }
 

@@ -1,8 +1,11 @@
 
 package MotelManagement.controllers;
 
+import MotelManagement.bus.AccountBus;
 import MotelManagement.bus.RoomTypeBus;
+import MotelManagement.dto.ApplicationUser;
 import MotelManagement.dto.RoomType;
+import MotelManagement.util.Constant;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.NumberFormat;
@@ -14,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 
 public class EditRoomTypeServlet extends HttpServlet {
@@ -24,15 +28,15 @@ public class EditRoomTypeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //        HttpSession session = request.getSession();
-//        ApplicationUser user = (ApplicationUser) session.getAttribute("user");
-//        
+                HttpSession session = request.getSession();
+        ApplicationUser user = (ApplicationUser) session.getAttribute("user");
+        
         RequestDispatcher dispatcher;
-//        if (user != null) {
-//            AccountBus accountBus = new AccountBus();
-//            String role = accountBus.getRole(user);
-//            
-//            if (role.equals(Constant.OWNER)) {
+        if (user != null) {
+            AccountBus accountBus = new AccountBus();
+            String role = accountBus.getRole(user);
+            
+            if (role.equals(Constant.OWNER)) {
                    String path = "WEB-INF/views/room_type/edit.jsp";
                    String id = request.getParameter("id");
                    
@@ -42,15 +46,15 @@ public class EditRoomTypeServlet extends HttpServlet {
                    request.setAttribute("roomType", roomType);
                    dispatcher = request.getRequestDispatcher(path);
                    dispatcher.forward(request, response);
-//            }
-//            else {
-//                dispatcher = request.getRequestDispatcher("/Login");
-//            }
-//        }
-//        else {
-//            dispatcher = request.getRequestDispatcher("/Login");
-//        }
-//        dispatcher.forward(request, response);
+            }
+            else {
+                dispatcher = request.getRequestDispatcher("/Login");
+            }
+        }
+        else {
+            dispatcher = request.getRequestDispatcher("/Login");
+        }
+        dispatcher.forward(request, response);
     }
 
     

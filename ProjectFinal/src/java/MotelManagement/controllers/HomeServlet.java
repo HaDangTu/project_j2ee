@@ -42,7 +42,12 @@ public class HomeServlet extends HttpServlet {
                 
                 for (Room room : rooms) {
                     String roomId = room.getId();
-                    roomGuests.add(new RoomGuest(room, roomBus.getGuests(roomId)));
+                    RoomGuest roomGuest = new RoomGuest();
+                    roomGuest.setRoom(room);
+                    roomGuest.setMaxGuest(roomBus.getMaxNumGuest(roomId));
+                    roomGuest.setGuests(roomBus.getGuests(roomId));
+                    
+                    roomGuests.add(roomGuest);
                 }
                 
                 request.setAttribute("rooms", roomGuests);
@@ -59,7 +64,7 @@ public class HomeServlet extends HttpServlet {
             dispatcher = request.getRequestDispatcher(path); //forward đến home page
         }
         else {
-            dispatcher = request.getRequestDispatcher("/");
+            dispatcher = request.getRequestDispatcher("/Login");
         }
         
         dispatcher.forward(request, response);

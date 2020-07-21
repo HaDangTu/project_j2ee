@@ -5,6 +5,7 @@ import java.util.List;
 
 public class RoomGuest {
     private Room room;
+    private int maxGuest;
     
     private List<Guest> guests;
     
@@ -32,4 +33,13 @@ public class RoomGuest {
     public void setGuests(List<Guest> guests) {
         this.guests = guests;
     }
+
+    public int getMaxGuest() {
+        return maxGuest;
+    }
+
+    public void setMaxGuest(int maxGuest) {
+        this.maxGuest = maxGuest;
+    }
+    
 }

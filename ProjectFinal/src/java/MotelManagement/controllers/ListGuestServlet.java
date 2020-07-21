@@ -31,14 +31,14 @@ public class ListGuestServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-//        HttpSession session = request.getSession();
-//        ApplicationUser user = (ApplicationUser) session.getAttribute("user");
+        HttpSession session = request.getSession();
+        ApplicationUser user = (ApplicationUser) session.getAttribute("user");
         RequestDispatcher dispatcher;
-//        if (user != null) {
-//            AccountBus accountBus = new AccountBus();
-//            String role = accountBus.getRole(user);
-//            
-//            if (role.equals(Constant.OWNER)) {
+        if (user != null) {
+            AccountBus accountBus = new AccountBus();
+            String role = accountBus.getRole(user);
+            
+            if (role.equals(Constant.OWNER)) {
                 GuestBus guestBus = new GuestBus();
                 GenderBus genderBus = new GenderBus();
                 StateBus stateBus = new StateBus();
@@ -69,17 +69,17 @@ public class ListGuestServlet extends HttpServlet {
                 request.setAttribute("guests", guestInfos);
                 String path = "WEB-INF/views/guest/index.jsp";
                 dispatcher = request.getRequestDispatcher(path);
-                dispatcher.forward(request, response);
-//            }
-//            else {
-//                dispatcher = request.getRequestDispatcher("/Login");
-//            }
-//        }
-//        else {
-//            dispatcher = request.getRequestDispatcher("/Login");
-//        }
-//        
-//        dispatcher.forward(request, response);
+                
+            }
+            else {
+                dispatcher = request.getRequestDispatcher("/Login");
+            }
+        }
+        else {
+            dispatcher = request.getRequestDispatcher("/Login");
+        }
+        
+        dispatcher.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

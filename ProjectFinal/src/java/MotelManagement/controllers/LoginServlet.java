@@ -15,19 +15,18 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
         String path = "WEB-INF/views/account/login.jsp";
-
         RequestDispatcher dispatcher = request.getRequestDispatcher(path);
         dispatcher.forward(request, response);
     }
-    
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        
+
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
@@ -41,17 +40,15 @@ public class LoginServlet extends HttpServlet {
             if (accountBus.isValid(user, password)) {
                 dispatcher = request.getRequestDispatcher("/Home");
                 session.setAttribute("user", user);
-            } 
-            else {
+            } else {
                 request.setAttribute("errMsg", errMessage);
                 dispatcher = request.getRequestDispatcher("WEB-INF/views/account/login.jsp");
             }
-        } 
-        else {
+        } else {
             request.setAttribute("errMsg", errMessage);
             dispatcher = request.getRequestDispatcher("WEB-INF/views/account/login.jsp");
         }
-        
+
         dispatcher.forward(request, response);
     }
 }

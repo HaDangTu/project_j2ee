@@ -76,7 +76,7 @@ public class RoomBus {
         
         for (int i = 0; i < rooms.size(); i++) {
             Room room = rooms.get(i);
-            if (!isFull(room.getId())) {
+            if (isFull(room.getId())) {
                 rooms.remove(room);
             }
         }
@@ -89,7 +89,7 @@ public class RoomBus {
         
         for (int i = 0; i < rooms.size(); i++) {
             Room room = rooms.get(i);
-            if (isFull(room.getId())) {
+            if (!isFull(room.getId())) {
                 rooms.remove(room);
             }
         }
@@ -157,7 +157,9 @@ public class RoomBus {
      * @return 
      */
     public int getRentedNumberByQuarter(String roomId, int month1, int month2, int year) {
-        return roomDao.countRentedNumber(roomId, month1, month2, year);
+        int maxGuest = getMaxNumGuest(roomId);
+        int count = roomDao.countRentedNumber(roomId, month1, month2, year);
+        return (int) Math.round((double) count / maxGuest);
     }
     
     /**
@@ -168,7 +170,9 @@ public class RoomBus {
      * @return 
      */
     public int getRentedNumberByMonth(String roomId, int month, int year) {
-        return roomDao.countRentedNumber(roomId, month, year);
+        int maxGuest = getMaxNumGuest(roomId);
+        int count = roomDao.countRentedNumber(roomId, month, year);
+        return (int) Math.round((double) count / maxGuest);
     }
     
     /**
@@ -179,7 +183,9 @@ public class RoomBus {
      * @return 
      */
     public int getRentedNumberByDate(String roomId, Date fromDate, Date toDate) {
-        return roomDao.countRentedNumber(roomId, fromDate, toDate);
+        int maxGuest = getMaxNumGuest(roomId);
+        int count = roomDao.countRentedNumber(roomId, fromDate, toDate);
+        return (int) Math.round((double) count / maxGuest);
     }
     
     

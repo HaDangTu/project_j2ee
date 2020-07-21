@@ -32,122 +32,152 @@ public class CreateNewGuestServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
 
-//        ApplicationUser user = (ApplicationUser) session.getAttribute("user");
+        ApplicationUser user = (ApplicationUser) session.getAttribute("user");
         AccountBus accountBus = new AccountBus();
 
         RequestDispatcher dispatcher;
-//        if (user != null) {
+        if (user != null) {
 
-//            String role = accountBus.getRole(user);
-//            
-//            if (role.equals(Constant.OWNER)) {
-        RoomBus roomBus = new RoomBus();
-        GenderBus genderBus = new GenderBus();
-        StateBus stateBus = new StateBus();
+            String role = accountBus.getRole(user);
 
-        List<Room> rooms = roomBus.getNotFullRooms();
-        List<Gender> genders = genderBus.getAll();
-        List<State> states = stateBus.getAll();
+            if (role.equals(Constant.OWNER)) {
+                RoomBus roomBus = new RoomBus();
+                GenderBus genderBus = new GenderBus();
+                StateBus stateBus = new StateBus();
 
-        request.setAttribute("rooms", rooms);
-        request.setAttribute("genders", genders);
-        request.setAttribute("states", states);
+                List<Room> rooms = roomBus.getNotFullRooms();
+                List<Gender> genders = genderBus.getAll();
+                List<State> states = stateBus.getAll();
 
-        String path = "WEB-INF/views/guest/create.jsp";
-        dispatcher = request.getRequestDispatcher(path);
+                String roomId = request.getParameter("id");
+
+                if (roomId != null) {
+                    request.setAttribute("roomId", roomId);
+                }
+
+                request.setAttribute("rooms", rooms);
+                request.setAttribute("genders", genders);
+                request.setAttribute("states", states);
+
+                String path = "WEB-INF/views/guest/create.jsp";
+                dispatcher = request.getRequestDispatcher(path);
+
+            } else {
+                dispatcher = request.getRequestDispatcher("/Login");
+            }
+        } else {
+            dispatcher = request.getRequestDispatcher("/Login");
+        }
         dispatcher.forward(request, response);
-//            }
-//            else {
-//                dispatcher = request.getRequestDispatcher("/Login");
-//            }
-//        }
-//        else 
-//            dispatcher = request.getRequestDispatcher("/Login");
-//        dispatcher.forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        String name = request.getParameter("name");
-        String birthday = request.getParameter("birthday");
-        String genderId = request.getParameter("gender");
-        String identityNumber = request.getParameter("identity_number");
-        String homeTown = request.getParameter("home_town");
-        String occupation = request.getParameter("occupation");
-        String roomId = request.getParameter("room");
-        String startDate = request.getParameter("start_date");
+        HttpSession session = request.getSession();
 
-        GuestBus guestBus = new GuestBus();
-        //logic code to validate data
-        String nameErrMsg = guestBus.isValidName(name);
-        String birthdayErrMsg = guestBus.isValidDate(birthday);
-        String identityErrMsg = guestBus.isValidIdentityNumber(identityNumber);
-        String homeTownErrMsg = guestBus.isValidName(homeTown);
-        String occupationErrMsg = guestBus.isValidName(occupation);
-        String startDateErrMsg = guestBus.isValidDate(startDate);
+        ApplicationUser user = (ApplicationUser) session.getAttribute("user");
+        AccountBus accountBus = new AccountBus();
 
-        boolean flag = false;
-        if (!nameErrMsg.equals("")) {
-            request.setAttribute("nameErrMsg", nameErrMsg);
-            flag = true;
-        }
+        RequestDispatcher dispatcher;
+        if (user != null) {
 
-        if (!birthdayErrMsg.equals("")) {
-            request.setAttribute("birthdayErrMsg", birthdayErrMsg);
-            flag = true;
-        }
+            String role = accountBus.getRole(user);
 
-        if (!identityErrMsg.equals("")) {
-            request.setAttribute("identityErrMsg", identityErrMsg);
-            flag = true;
-        }
+            if (role.equals(Constant.OWNER)) {
+                request.setCharacterEncoding("UTF-8");
+                String name = request.getParameter("name");
+                String birthday = request.getParameter("birthday");
+                String genderId = request.getParameter("gender");
+                String identityNumber = request.getParameter("identity_number");
+                String homeTown = request.getParameter("home_town");
+                String occupation = request.getParameter("occupation");
+                String roomId = request.getParameter("room");
+                String startDate = request.getParameter("start_date");
 
-        if (!homeTownErrMsg.equals("")) {
-            request.setAttribute("homeTownErrMsg", homeTownErrMsg);
-            flag = true;
-        }
+                GuestBus guestBus = new GuestBus();
+                //logic code to validate data
+                String nameErrMsg = guestBus.isValidName(name);
+                String birthdayErrMsg = guestBus.isValidDate(birthday);
+                String identityErrMsg = guestBus.isValidIdentityNumber(identityNumber);
+                String homeTownErrMsg = guestBus.isValidName(homeTown);
+                String occupationErrMsg = guestBus.isValidName(occupation);
+                String startDateErrMsg = guestBus.isValidDate(startDate);
 
-        if (!occupationErrMsg.equals("")) {
-            request.setAttribute("occupationErrMsg", occupationErrMsg);
-            flag = true;
-        }
+                boolean flag = false;
+                if (!nameErrMsg.equals("")) {
+                    request.setAttribute("nameErrMsg", nameErrMsg);
+                    flag = true;
+                }
 
-        if (!startDateErrMsg.equals("")) {
-            request.setAttribute("startDateErrMsg", startDateErrMsg);
-            flag = true;
-        }
+                if (!birthdayErrMsg.equals("")) {
+                    request.setAttribute("birthdayErrMsg", birthdayErrMsg);
+                    flag = true;
+                }
 
-        if (flag) {
-            String path = "WEB-INF/views/guest/create.jsp";
-            RequestDispatcher dispatcher = request.getRequestDispatcher(path);
-            dispatcher.forward(request, response);
-        } else {
-            Guest guest = new Guest();
-            guest.setName(name);
-            guest.setGenderId(genderId);
-            guest.setIdentityNumber(identityNumber);
-            guest.setHomeTown(homeTown);
-            guest.setOccupation(occupation);
-            guest.setStateId("S01");
-            guest.setRoomId(roomId);
+                if (!identityErrMsg.equals("")) {
+                    request.setAttribute("identityErrMsg", identityErrMsg);
+                    flag = true;
+                }
 
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            try {
-                Date date = formatter.parse(birthday);
-                guest.setBirthday(date);
+                if (!homeTownErrMsg.equals("")) {
+                    request.setAttribute("homeTownErrMsg", homeTownErrMsg);
+                    flag = true;
+                }
 
-                date = formatter.parse(startDate);
-                guest.setStartDate(date);
-            } catch (ParseException e) {
-                System.err.println(e.getMessage());
+                if (!occupationErrMsg.equals("")) {
+                    request.setAttribute("occupationErrMsg", occupationErrMsg);
+                    flag = true;
+                }
+
+                if (!startDateErrMsg.equals("")) {
+                    request.setAttribute("startDateErrMsg", startDateErrMsg);
+                    flag = true;
+                }
+
+                if (flag) {
+                    String path = "WEB-INF/views/guest/create.jsp";
+                    RoomBus roomBus = new RoomBus();
+                    GenderBus genderBus = new GenderBus();
+
+                    List<Room> rooms = roomBus.getNotFullRooms();
+                    List<Gender> genders = genderBus.getAll();
+
+                    request.setAttribute("rooms", rooms);
+                    request.setAttribute("genders", genders);
+                    dispatcher = request.getRequestDispatcher(path);
+//                    dispatcher.forward(request, response);
+                } else {
+                    Guest guest = new Guest();
+                    guest.setName(name);
+                    guest.setGenderId(genderId);
+                    guest.setIdentityNumber(identityNumber);
+                    guest.setHomeTown(homeTown);
+                    guest.setOccupation(occupation);
+                    guest.setStateId("S01");
+                    guest.setRoomId(roomId);
+
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                    try {
+                        Date date = formatter.parse(birthday);
+                        guest.setBirthday(date);
+
+                        date = formatter.parse(startDate);
+                        guest.setStartDate(date);
+                    } catch (ParseException e) {
+                        System.err.println(e.getMessage());
+                    }
+
+                    guestBus.insert(guest);
+
+                    dispatcher = request.getRequestDispatcher("/ListGuest");
+                }
+            } else {
+                dispatcher = request.getRequestDispatcher("/Login");
             }
-
-            guestBus.insert(guest);
-
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/ListGuest");
-            dispatcher.forward(request, response);
+        } else {
+            dispatcher = request.getRequestDispatcher("/Login");
         }
+        dispatcher.forward(request, response);
     }
 }

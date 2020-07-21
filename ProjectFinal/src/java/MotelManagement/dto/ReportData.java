@@ -1,20 +1,14 @@
 package MotelManagement.dto;
 
 public class ReportData {
+    private int month;
     private String roomName;
-    private String rentedNum;
-    private String money;
+    private int rentedNum;
+    private double money;
 
     public ReportData() {
     }
 
-    public ReportData(String roomName, String rentedNum, String money) {
-        this.roomName = roomName;
-        this.rentedNum = rentedNum;
-        this.money = money;
-    }
-
-    
     public String getRoomName() {
         return roomName;
     }
@@ -23,20 +17,28 @@ public class ReportData {
         this.roomName = roomName;
     }
 
-    public String getRentedNum() {
+    public int getRentedNum() {
         return rentedNum;
     }
 
-    public void setRentedNum(String rentedNum) {
+    public void setRentedNum(int rentedNum) {
         this.rentedNum = rentedNum;
     }
 
-    public String getMoney() {
+    public double getMoney() {
         return money;
     }
 
-    public void setMoney(String money) {
+    public void setMoney(double money) {
         this.money = money;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
     }
     
     

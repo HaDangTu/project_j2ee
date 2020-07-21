@@ -282,6 +282,15 @@ INSERT INTO power_infos (id, room_id, date, electricity_index, water_index) VALU
 INSERT INTO power_infos (id, room_id, date, electricity_index, water_index) VALUES ('IEW20000067','R0003','2020-06-15 00:00:00',18700,1900);
 INSERT INTO power_infos (id, room_id, date, electricity_index, water_index) VALUES ('IEW20000068','R0004','2020-06-09 00:00:00',26900,2900);
 INSERT INTO power_infos (id, room_id, date, electricity_index, water_index) VALUES ('IEW20000069','R0005','2020-06-16 00:00:00',18320,3941);
+INSERT INTO power_infos (id, room_id, date, electricity_index, water_index) VALUES ('IEW20000070', 'R0011', '2020-06-04 00:00:00', '17060', '3840');
+INSERT INTO power_infos (id, room_id, date, electricity_index, water_index) VALUES ('IEW20000071', 'R0012', '2020-06-26 00:00:00', '13790', '2100');
+INSERT INTO power_infos (id, room_id, date, electricity_index, water_index) VALUES ('IEW20000072', 'R0013', '2020-06-01 00:00:00', '13100', '1780');
+INSERT INTO power_infos (id, room_id, date, electricity_index, water_index) VALUES ('IEW20000073', 'R0014', '2020-06-11 00:00:00', '15503', '3880');
+INSERT INTO power_infos (id, room_id, date, electricity_index, water_index) VALUES ('IEW20000074', 'R0015', '2020-06-14 00:00:00', '14740', '1920');
+INSERT INTO power_infos (id, room_id, date, electricity_index, water_index) VALUES ('IEW20000075', 'R0016', '2020-06-25 00:00:00', '13580', '1970');
+INSERT INTO power_infos (id, room_id, date, electricity_index, water_index) VALUES ('IEW20000076', 'R0021', '2020-06-24 00:00:00', '20320', '2064');
+INSERT INTO power_infos (id, room_id, date, electricity_index, water_index) VALUES ('IEW20000077', 'R0022', '2020-06-08 00:00:00', '16940', '2520');
+INSERT INTO power_infos (id, room_id, date, electricity_index, water_index) VALUES ('IEW20000078', 'R0024', '2020-06-10 00:00:00', '11940', '1830');
 
 -- invoices table
 CREATE TABLE `invoices` (
@@ -387,6 +396,8 @@ INSERT INTO invoices (id, room_id, date, collection_date, content, debt, proceed
 INSERT INTO invoices (id, room_id, date, collection_date, content, debt, proceeds, excess_cash) VALUES ('I2000000087','R0001','2020-04-02 00:00:00','2020-06-17 00:00:00','Tiền điện nước tháng 4',0,500000,0);
 INSERT INTO invoices (id, room_id, date, collection_date, content, debt, proceeds, excess_cash) VALUES ('I2000000088','R0001','2020-05-02 00:00:00','2020-06-17 00:00:00','Tiền điện nước tháng 5',0,500000,0);
 INSERT INTO invoices (id, room_id, date, collection_date, content, debt, proceeds, excess_cash) VALUES ('I2000000089','R0001','2020-05-02 00:00:00','2020-06-20 00:00:00','Tiền phòng tháng 5',0,1200000,0);
+INSERT INTO invoices (id, room_id, date, collection_date, content, debt, proceeds, excess_cash) VALUES ('I2000000090', 'R0001', '2020-07-02 00:00:00', '2020-07-17 00:00:00', 'Tiền phòng tháng 7', '0', '1200000', '0');
+INSERT INTO invoices (id, room_id, date, collection_date, content, debt, proceeds, excess_cash) VALUES ('I2000000091', 'R0001', '2020-06-02 00:00:00', '2020-07-18 00:00:00', 'Tiền điện nước tháng 6', '0', '279000', '0');
 
 -- parameters table
 CREATE TABLE `parameters` (

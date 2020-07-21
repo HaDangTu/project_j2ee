@@ -43,16 +43,20 @@ public class InvoiceServlet extends HttpServlet {
                 RoomBus roomBus = new RoomBus();
                 List<Room> rooms = roomBus.getRentedRooms();
                 
+                request.setAttribute("rooms", rooms);
+                
+                String path = "WEB-INF/views/invoice/index.jsp";
+                dispatcher = request.getRequestDispatcher(path);
+                dispatcher.forward(request, response);
             }
             else {
-                dispatcher = request.getRequestDispatcher("/");
-                dispatcher.forward(request, response);
+                dispatcher = request.getRequestDispatcher("/Login");
             }
         }
         else {
-            dispatcher = request.getRequestDispatcher("/");
-            dispatcher.forward(request, response);
+            dispatcher = request.getRequestDispatcher("/Login");
         }
+        dispatcher.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

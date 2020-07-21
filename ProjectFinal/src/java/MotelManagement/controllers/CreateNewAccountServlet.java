@@ -4,6 +4,7 @@ import MotelManagement.bus.AccountBus;
 import MotelManagement.bus.RoleBus;
 import MotelManagement.dto.ApplicationUser;
 import MotelManagement.dto.Role;
+import MotelManagement.util.Constant;
 import MotelManagement.util.Generator;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 
 public class CreateNewAccountServlet extends HttpServlet {
@@ -21,31 +23,36 @@ public class CreateNewAccountServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //        HttpSession session = request.getSession();
-//        ApplicationUser user = (ApplicationUser) session.getAttribute("user");
-//        
+                HttpSession session = request.getSession();
+        ApplicationUser user = (ApplicationUser) session.getAttribute("user");
+        
         RequestDispatcher dispatcher;
-//        if (user != null) {
-//            AccountBus accountBus = new AccountBus();
-//            String role = accountBus.getRole(user);
-//            
-//            if (role.equals(Constant.OWNER)) {
+        if (user != null) {
+            AccountBus accountBus = new AccountBus();
+            String role = accountBus.getRole(user);
+            
+            if (role.equals(Constant.OWNER)) {
                     RoleBus roleBus = new RoleBus();
                     List<Role> roles = roleBus.getAll();
+                    
+                    String roomId = request.getParameter("roomId");
+                    if (roomId != null) {
+                        request.setAttribute("roomId", roomId);
+                    }
                     
                     request.setAttribute("roles", roles);
                     String path = "WEB-INF/views/account/create.jsp";
                     dispatcher = request.getRequestDispatcher(path);
-                    dispatcher.forward(request, response);
-//            }
-//            else {
-//                dispatcher = request.getRequestDispatcher("/Login");
-//            }
-//        }
-//        else {
-//            dispatcher = request.getRequestDispatcher("/Login");
-//        }
-//        dispatcher.forward(request, response);                    
+                    
+            }
+            else {
+                dispatcher = request.getRequestDispatcher("/Login");
+            }
+        }
+        else {
+            dispatcher = request.getRequestDispatcher("/Login");
+        }
+        dispatcher.forward(request, response);                    
     }
 
 

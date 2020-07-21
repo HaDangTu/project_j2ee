@@ -27,10 +27,10 @@ public class RoomDao extends BaseDao {
                 id = resultSet.getString("id");
                 //Generate next id
                 id = Generator.nextId("R", id, false);
+            } else {
+                id = "R0001";
             }
-            else id = "R0001";
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
             dbConnection.closeConnection();
@@ -38,7 +38,7 @@ public class RoomDao extends BaseDao {
 
         return id;
     }
-    
+
     public boolean insert(Room room) {
         String sql = "INSERT INTO rooms (id, name, room_type_id, user_id) VALUES"
                 + "(?, ?, ?, ?);";
@@ -139,12 +139,13 @@ public class RoomDao extends BaseDao {
 
     /**
      * Lấy danh sách các phòng chưa cho thuê
+     *
      * @return danh sách các phòng chưa cho thuê
      */
     public List<Room> selectNotRentedRooms() {
         String query = "SELECT * FROM rooms WHERE id not in (SELECT room_id FROM "
                 + "guests WHERE state_id = 'S01');";
-        
+
         List<Room> rooms = new ArrayList<>();
 
         try {
@@ -169,38 +170,38 @@ public class RoomDao extends BaseDao {
         }
 
         return rooms;
-    } 
-    
+    }
+
     /**
      * Lấy số lượng người tối đa trong phòng.
+     *
      * @param roomId mã phòng
      * @return max
      */
     public int selectMaxNumGuest(String roomId) {
         int max = 0;
-        
+
         String query = "SELECT num_of_guest from room_types WHERE id = ("
                 + "SELECT room_type_id from rooms where id = ?);";
-        
-        Object[] parameters = new Object[] { roomId };
-        
+
+        Object[] parameters = new Object[]{roomId};
+
         try {
             ResultSet resultSet = dbConnection.select(query, parameters);
-            
+
             if (resultSet.next()) {
                 max = resultSet.getInt("num_of_guest");
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.err.println(e.getMessage());
             System.err.println(e.getCause());
         } finally {
             dbConnection.closeConnection();
         }
-        
+
         return max;
     }
-    
+
     /**
      * Lấy danh sách khách trọ của 1 phòng
      *
@@ -208,10 +209,10 @@ public class RoomDao extends BaseDao {
      * @return danh sách khách trọ
      */
     public List<Guest> selectGuests(String roomId) {
-        String query = "SELECT * FROM guests WHERE room_id = ?;";
+        String query = "SELECT * FROM guests WHERE room_id = ? AND state_id = 'S01'";
         List<Guest> guests = new ArrayList<>();
 
-        Object[] parameters = new Object[]{ roomId };
+        Object[] parameters = new Object[]{roomId};
 
         try {
             ResultSet resultSet = dbConnection.select(query, parameters);
@@ -227,7 +228,7 @@ public class RoomDao extends BaseDao {
                     guest.setHomeTown(resultSet.getString("home_town"));
                     guest.setOccupation(resultSet.getString("occupation"));
                     guest.setRoomId(resultSet.getString("room_id"));
-
+                    guest.setStartDate(resultSet.getDate("start_date"));
                     guests.add(guest);
                 }
             }
@@ -241,9 +242,9 @@ public class RoomDao extends BaseDao {
         return guests;
     }
 
-    
     /**
      * select room by id
+     *
      * @param roomId mã phòng
      * @return room
      */
@@ -264,48 +265,48 @@ public class RoomDao extends BaseDao {
                         resultSet.getString("room_type_id"),
                         resultSet.getString("user_id"));
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
             dbConnection.closeConnection();
         }
-        
+
         return room;
     }
-    
+
     /**
      * Lấy tiền thuê của phòng
+     *
      * @param roomId mã phòng
      * @return tiền thuê phòng
      */
     public double selectMoney(String roomId) {
         double money = 0;
-        
+
         String query = "SELECT price FROM room_types WHERE id = ("
                 + "SELECT room_type_id from rooms where id = ?);";
-        
-        Object[] parameters = new Object[] { roomId };
-        
+
+        Object[] parameters = new Object[]{roomId};
+
         try {
             ResultSet resultSet = dbConnection.select(query, parameters);
-            
+
             if (resultSet.next()) {
                 money = resultSet.getDouble("price");
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.err.println(e.getMessage());
             System.err.println(e.getCause());
         } finally {
             dbConnection.closeConnection();
         }
-        
+
         return money;
-    } 
-    
+    }
+
     /**
      * Lấy ngày bắt đầu thuê của phòng = ngày bắt đầu ở của khách trọ
+     *
      * @param roomId mã phòng
      * @return ngày bắt đầu thuê
      */
@@ -313,35 +314,34 @@ public class RoomDao extends BaseDao {
         String query = "SELECT min(start_date) AS start_date"
                 + " FROM guests WHERE room_id = ? AND state_id = 'S01';";
         Date date = null;
-        
-        Object[] parameters = new Object[] { roomId };
-        
+
+        Object[] parameters = new Object[]{roomId};
+
         try {
             ResultSet resultSet = dbConnection.select(query, parameters);
-            
+
             if (resultSet.next()) {
                 date = resultSet.getDate("start_date");
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.err.println(e.getMessage());
             System.err.println(e.getCause());
         } finally {
             dbConnection.closeConnection();
         }
-        
+
         return date;
     }
 
     public Room selectRoom(ApplicationUser user) {
         String query = "SELECT * FROM rooms WHERE user_id = ?";
         Room room = null;
-        
-        Object[] parameters = new Object[] { user.getId() };
-        
+
+        Object[] parameters = new Object[]{user.getId()};
+
         try {
             ResultSet resultSet = dbConnection.select(query, parameters);
-            
+
             if (resultSet.next()) {
                 room = new Room(
                         resultSet.getString("id"),
@@ -349,25 +349,24 @@ public class RoomDao extends BaseDao {
                         resultSet.getString("room_type_id"),
                         resultSet.getString("user_id"));
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.err.println(e.getMessage());
             System.err.println(e.getCause());
         } finally {
             dbConnection.closeConnection();
         }
-        
+
         return room;
     }
 
     public int countRentedNumber(String roomId, int month1, int month2, int year) {
         int count = 0;
         String query;
-        query = "SELECT COUNT(room_id) AS rented_num FROM guest WHERE room_id = ? "
+        query = "SELECT COUNT(room_id) AS rented_num FROM guests WHERE room_id = ? "
                 + "AND MONTH(start_date) BETWEEN ? AND ? AND YEAR(start_date) = ?;";
-      
-        Object[] parameters = new Object[] { roomId, month1, month2, year };
-        
+
+        Object[] parameters = new Object[]{roomId, month1, month2, year};
+
         try {
             ResultSet resultSet = dbConnection.select(query, parameters);
             if (resultSet != null) {
@@ -375,25 +374,23 @@ public class RoomDao extends BaseDao {
                     count = resultSet.getInt("rented_num");
                 }
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.err.println(e.getMessage());
-        }
-        finally {
+        } finally {
             dbConnection.closeConnection();
         }
-        
+
         return count;
     }
-    
+
     public int countRentedNumber(String roomId, int month, int year) {
         int count = 0;
         String query;
-        query = "SELECT COUNT(room_id) AS rented_num FROM guest WHERE room_id = ? "
+        query = "SELECT COUNT(room_id) AS rented_num FROM guests WHERE room_id = ? "
                 + "AND MONTH(start_date) = ? AND YEAR(start_date) = ?;";
-      
-        Object[] parameters = new Object[] { roomId, month, year };
-        
+
+        Object[] parameters = new Object[]{roomId, month, year};
+
         try {
             ResultSet resultSet = dbConnection.select(query, parameters);
             if (resultSet != null) {
@@ -401,25 +398,23 @@ public class RoomDao extends BaseDao {
                     count = resultSet.getInt("rented_num");
                 }
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.err.println(e.getMessage());
-        }
-        finally {
+        } finally {
             dbConnection.closeConnection();
         }
-        
+
         return count;
     }
-    
+
     public int countRentedNumber(String roomId, Date startDate, Date endDate) {
         int count = 0;
         String query;
-        query = "SELECT COUNT(room_id) AS rented_num FROM guest WHERE room_id = ? "
+        query = "SELECT COUNT(room_id) AS rented_num FROM guests WHERE room_id = ? "
                 + "AND DATE(start_date) BETWEEN ? AND ?;";
-      
-        Object[] parameters = new Object[] { roomId, startDate, endDate };
-        
+
+        Object[] parameters = new Object[]{roomId, startDate, endDate};
+
         try {
             ResultSet resultSet = dbConnection.select(query, parameters);
             if (resultSet != null) {
@@ -427,26 +422,24 @@ public class RoomDao extends BaseDao {
                     count = resultSet.getInt("rented_num");
                 }
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.err.println(e.getMessage());
-        }
-        finally {
+        } finally {
             dbConnection.closeConnection();
         }
-        
+
         return count;
     }
-    
+
     public double selectSumMoney(String roomId, int startMonth, int endMonth, int year) {
         double sumMoney = 0;
         String query;
         query = "SELECT SUM(proceeds - excess_cash) as sum_money FROM invoices "
                 + "WHERE room_id = ? AND MONTH(collection_date) BETWEEN ? AND ? "
                 + "AND YEAR(collection_date) = ? AND content LIKE '%phòng%'";
-      
-        Object[] parameters = new Object[] { roomId, startMonth, endMonth, year };
-        
+
+        Object[] parameters = new Object[]{roomId, startMonth, endMonth, year};
+
         try {
             ResultSet resultSet = dbConnection.select(query, parameters);
             if (resultSet != null) {
@@ -454,25 +447,23 @@ public class RoomDao extends BaseDao {
                     sumMoney = resultSet.getDouble("sum_money");
                 }
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.err.println(e.getMessage());
-        }
-        finally {
+        } finally {
             dbConnection.closeConnection();
         }
         return sumMoney;
     }
-    
+
     public double selectSumMoney(String roomId, int month, int year) {
         double sumMoney = 0;
         String query;
         query = "SELECT SUM(proceeds - excess_cash) as sum_money FROM invoices "
                 + "WHERE room_id = ? AND MONTH(collection_date) = ? "
                 + "AND YEAR(collection_date) = ? AND content LIKE '%phòng%'";
-      
-        Object[] parameters = new Object[] { roomId, month, year };
-        
+
+        Object[] parameters = new Object[]{roomId, month, year};
+
         try {
             ResultSet resultSet = dbConnection.select(query, parameters);
             if (resultSet != null) {
@@ -480,25 +471,23 @@ public class RoomDao extends BaseDao {
                     sumMoney = resultSet.getDouble("sum_money");
                 }
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.err.println(e.getMessage());
-        }
-        finally {
+        } finally {
             dbConnection.closeConnection();
         }
         return sumMoney;
     }
-    
+
     public double selectSumMoney(String roomId, Date startDate, Date endDate) {
         double sumMoney = 0;
         String query;
         query = "SELECT SUM(proceeds - excess_cash) as sum_money FROM invoices "
                 + "WHERE room_id = ? AND DATE(collection_date) BETWEEN ? AND ? "
                 + "AND content LIKE '%phòng%'";
-      
-        Object[] parameters = new Object[] { roomId, startDate };
-        
+
+        Object[] parameters = new Object[]{roomId, startDate, endDate};
+
         try {
             ResultSet resultSet = dbConnection.select(query, parameters);
             if (resultSet != null) {
@@ -506,11 +495,9 @@ public class RoomDao extends BaseDao {
                     sumMoney = resultSet.getDouble("sum_money");
                 }
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.err.println(e.getMessage());
-        }
-        finally {
+        } finally {
             dbConnection.closeConnection();
         }
         return sumMoney;

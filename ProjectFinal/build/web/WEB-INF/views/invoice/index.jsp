@@ -28,20 +28,25 @@
 
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="./ListGuest">Khách trọ</a>
+                            <a class="nav-link active" href="./Home">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="./ListRoom">Phòng trọ</a>
+                            <a class="nav-link active" href="./ListGuest">Khách trọ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="./ListRoomType">Loại phòng trọ</a>
+                            <a class="nav-link active" href="./ListRoom">Phòng trọ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="./Invoice">Hóa đơn</a>
+                            <a class="nav-link active" href="./ListRoomType">Loại phòng trọ</a>
                         </li>
-
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="./Report">Báo cáo</a>
+                            <a class="nav-link active font-weight-bold" href="./Invoice">Hóa đơn</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active font-weight-bold" href="./UpdatePower">Điện nước</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="./Report">Báo cáo</a>
                         </li>
                     </ul>
 

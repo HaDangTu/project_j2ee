@@ -31,27 +31,32 @@
 
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="./ListGuest">Khách trọ</a>
+                            <a class="nav-link active" href="./Home">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="./ListRoom">Phòng trọ</a>
+                            <a class="nav-link active font-weight-bold" href="./ListGuest">Khách trọ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="./ListRoomType">Loại phòng trọ</a>
+                            <a class="nav-link active" href="./ListRoom">Phòng trọ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="./Invoice">Hóa đơn</a>
+                            <a class="nav-link active" href="./ListRoomType">Loại phòng trọ</a>
                         </li>
-
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="./Report">Báo cáo</a>
+                            <a class="nav-link active" href="./Invoice">Hóa đơn</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="./UpdatePower">Điện nước</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="./Report">Báo cáo</a>
                         </li>
                     </ul>
 
                     <ul class="navbar-nav my-2 my-lg-0">
                         <li class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle active" data-toggle="dropdown">
-                                Hello! <%= user.getUsername() %>
+                                Hello! <%= user.getUsername()%>
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right">
@@ -150,11 +155,11 @@
                 </form>
             </div>
         </div>
-        
+
     </body>
     <script>
         <c:if test="${roomId != null}">
-            document.getElementById("room-select").value = '${roomId}';
+        document.getElementById("room-select").value = '${roomId}';
         </c:if>
     </script>
     <script src="${context}/resources/js/jquery-3.5.1.js"></script>

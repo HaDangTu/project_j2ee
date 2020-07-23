@@ -47,7 +47,7 @@ public class InvoiceServlet extends HttpServlet {
                 
                 String path = "WEB-INF/views/invoice/index.jsp";
                 dispatcher = request.getRequestDispatcher(path);
-                dispatcher.forward(request, response);
+//                dispatcher.forward(request, response);
             }
             else {
                 dispatcher = request.getRequestDispatcher("/Login");

@@ -13,7 +13,7 @@
         <title>Xóa phòng trọ</title>
     </head>
     <body>
-        <% 
+        <%
             ApplicationUser user = (ApplicationUser) session.getAttribute("user");
         %>
         <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
@@ -28,18 +28,23 @@
 
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
+                            <a class="nav-link text-white" href="./Home">Home</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link text-white" href="./ListGuest">Khách trọ</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-white" href="./ListRoom">Phòng trọ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="./ListRoomType">Loại phòng trọ</a>
+                            <a class="nav-link text-white font-weight-bold" href="./ListRoomType">Loại phòng trọ</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-white" href="./Invoice">Hóa đơn</a>
                         </li>
-
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="./UpdatePower">Điện nước</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link text-white" href="./Report">Báo cáo</a>
                         </li>
@@ -48,7 +53,7 @@
                     <ul class="navbar-nav my-2 my-lg-0">
                         <li class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle active" data-toggle="dropdown">
-                                Hello! <%= user.getUsername() %>
+                                Hello! <%= user.getUsername()%>
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right">

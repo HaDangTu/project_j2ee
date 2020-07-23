@@ -104,14 +104,6 @@
         <servlet-class>MotelManagement.controllers.PayPowerInvoiceServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>PayAllRoomServlet</servlet-name>
-        <servlet-class>MotelManagement.controllers.PayAllRoomServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>PayAllRoomInvoiceServlet</servlet-name>
-        <servlet-class>MotelManagement.controllers.PayAllRoomInvoiceServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>MonthReportServlet</servlet-name>
         <servlet-class>MotelManagement.controllers.MonthReportServlet</servlet-class>
     </servlet>
@@ -230,14 +222,6 @@
     <servlet-mapping>
         <servlet-name>PayPowerInvoiceServlet</servlet-name>
         <url-pattern>/PayPowerInvoice</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>PayAllRoomServlet</servlet-name>
-        <url-pattern>/PayAllRoom</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>PayAllRoomInvoiceServlet</servlet-name>
-        <url-pattern>/PayAllRoomInvoice</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>MonthReportServlet</servlet-name>

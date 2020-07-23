@@ -77,7 +77,11 @@ public class PayPowerInvoiceServlet extends HttpServlet {
         
         request.setAttribute("now", now);
         request.setAttribute("invoice", guestPowerInvoice);
-        
+        request.setAttribute("id", roomId);
+        request.setAttribute("month", month);
+        request.setAttribute("year", year);
+            
+            
         String path = "WEB-INF/views/invoice/power_invoice.jsp";
         RequestDispatcher dispatcher = request.getRequestDispatcher(path);
         dispatcher.forward(request, response);
@@ -88,10 +92,27 @@ public class PayPowerInvoiceServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        String roomId = request.getParameter("room-id");
+        String roomId = request.getParameter("id");
         String dateStr = request.getParameter("date");
         String collectionDateStr = request.getParameter("collection-date");
-        double proceed = Double.valueOf(request.getParameter("guest-money"));
+        String proceedStr = request.getParameter("guest-money");
+        
+        int month = Integer.valueOf(request.getParameter("month"));
+        int year = Integer.valueOf(request.getParameter("year"));
+        
+        if (proceedStr.equals("")) {
+            String errProceedMsg = "Vui lòng nhập số tiền khách đưa";
+            
+            request.setAttribute("errProceedMsg", errProceedMsg);
+            request.setAttribute("id", roomId);
+            request.setAttribute("month", month);
+            request.setAttribute("year", year);
+            
+            doGet(request, response);
+            return;
+        }
+        
+        double proceed = Double.valueOf(proceedStr);
         double debt = Double.valueOf(request.getParameter("debt"));
         double excessCash = Double.valueOf(request.getParameter("excess-cash"));
         

@@ -36,6 +36,9 @@
 
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item">
+                                    <a class="nav-link text-white font-weight-bold" href="./Home">Home</a>
+                                </li>
+                                <li class="nav-item">
                                     <a class="nav-link text-white" href="./ListGuest">Khách trọ</a>
                                 </li>
                                 <li class="nav-item">
@@ -83,7 +86,7 @@
 
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="./Home">Home</a>
+                                    <a class="nav-link active font-weight-bold" href="./Home">Home</a>
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a href="#" class="nav-link dropdown-toggle active" data-toggle="dropdown">

@@ -12,7 +12,7 @@
         <title>Hóa đơn phòng trọ</title>
     </head>
     <body>
-        <% 
+        <%
             ApplicationUser user = (ApplicationUser) session.getAttribute("user");
         %>
         <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
@@ -27,27 +27,30 @@
 
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="./ListGuest">Khách trọ</a>
+                            <a class="nav-link active" href="./Home">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="./ListRoom">Phòng trọ</a>
+                            <a class="nav-link active" href="./ListGuest">Khách trọ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="./ListRoomType">Loại phòng trọ</a>
+                            <a class="nav-link active" href="./ListRoom">Phòng trọ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="./Invoice">Hóa đơn</a>
+                            <a class="nav-link active" href="./ListRoomType">Loại phòng trọ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active font-weight-bold" href="./Invoice">Hóa đơn</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="./Report">Báo cáo</a>
+                            <a class="nav-link active" href="./Report">Báo cáo</a>
                         </li>
                     </ul>
 
                     <ul class="navbar-nav my-2 my-lg-0">
                         <li class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle active" data-toggle="dropdown">
-                                Hello! <%= user.getUsername() %>
+                                Hello! <%= user.getUsername()%>
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right">
@@ -64,7 +67,7 @@
             <h2 class="text-center">Hóa đơn tiền phòng</h2>
             <hr>
             <div class="d-flex justify-content-center">
-                <form class="col-5" action="./PayRoomInvoice" method="POST">
+                <form class="col-5" action="./PayRoomInvoice?id=${id}&month=${month}&year=${year}" method="POST">
                     <input type="text" name="room-id" value="${invoice.getRoomId()}" hidden="hidden">
                     <h6 class="font-weight-bold">${invoice.getRoomName()}</h6>
                     <div class="d-flex justify-content-between mt-2">
@@ -84,18 +87,18 @@
                         </p>
                         <input type="date" hidden="hidden" name="date"
                                value="<fmt:formatDate value="${invoice.getFromDate()}"
-                                            type="DATE"
-                                            dateStyle="SHORT"
-                                            pattern="yyyy-MM-dd"/>">
+                                               type="DATE"
+                                               dateStyle="SHORT"
+                                               pattern="yyyy-MM-dd"/>">
                     </div>
 
                     <div class="row mt-2">
                         <label for="collection-date" class="font-weight-bold col-sm-5">Ngày thu tiền</label>
                         <input type="date" name="collection-date" class="form-control col-sm" 
                                value="<fmt:formatDate value="${now}"
-                                            type="DATE"
-                                            dateStyle="SHORT"
-                                            pattern="yyyy-MM-dd"/>">
+                                               type="DATE"
+                                               dateStyle="SHORT"
+                                               pattern="yyyy-MM-dd"/>">
                     </div>
 
                     <div class="row mt-2">
@@ -116,8 +119,13 @@
 
                     <div class="row mt-2">
                         <label for="guest-money" class="font-weight-bold col-sm-5 mb-0">Tiền khách đưa</label>
-                        <input type="number" name="guest-money" class="col-sm form-control"
-                               onkeyup="onKeyUp(event)">
+                        <div class="form-group col-sm p-0">
+                            <input type="number" name="guest-money" class=" form-control"
+                                   onkeyup="onKeyUp(event)">
+                            <c:if test="${!errProceedMsg.equals('')}">
+                                <p class="mb-0 text-danger font-weight-bold">${errProceedMsg}</p>
+                            </c:if>
+                        </div>
                     </div>
 
                     <div class="row mt-2">

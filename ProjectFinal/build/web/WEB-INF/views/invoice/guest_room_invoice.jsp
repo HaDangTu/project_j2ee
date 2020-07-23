@@ -27,10 +27,10 @@
 
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="./Home">Home</a>
+                            <a class="nav-link active" href="./Home">Home</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle active" data-toggle="dropdown">
+                            <a href="#" class="nav-link dropdown-toggle font-weight-bold active" data-toggle="dropdown">
                                 Hóa đơn
                             </a>
                             <div class="dropdown-menu dropdown-menu-left">

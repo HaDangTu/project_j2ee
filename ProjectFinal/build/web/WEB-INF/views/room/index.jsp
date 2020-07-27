@@ -57,7 +57,7 @@
 
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a href="./ListAccount" class="dropdown-item">Manage account</a>
-
+                                <a href="./ChangePassword" class="dropdown-item">Đổi mật khẩu</a>
                                 <a href="./Logout" class="dropdown-item">Logout</a>
                             </div>
                         </li>
@@ -66,7 +66,7 @@
             </div>
         </nav>
         <div class="container">
-            <h2 class="text-center">Phòng trọ</h2>
+            <h2 class="text-center mt-3">Phòng trọ</h2>
             <hr>
             <a href="./CreateNewRoom">Thêm phòng trọ mới</a>
 

@@ -150,11 +150,4 @@ public class PayPowerInvoiceServlet extends HttpServlet {
             
         }
     }
-
-    
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }
-
 }

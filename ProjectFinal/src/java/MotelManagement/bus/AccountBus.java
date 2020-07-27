@@ -46,6 +46,10 @@ public class AccountBus {
         return accountDao.update(account);
     }
     
+    public boolean changePassword(ApplicationUser user) {
+        return accountDao.upatePassword(user);
+    }
+    
     public boolean delete(ApplicationUser account) {
         return accountDao.delete(account);
     }

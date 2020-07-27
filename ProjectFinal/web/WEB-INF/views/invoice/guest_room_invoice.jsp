@@ -47,7 +47,7 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right">
-                                <!--<a href="./ManageAccount" class="dropdown-item">Manage account</a>-->
+                                <a href="./ChangePassword" class="dropdown-item">Đổi mật khẩu</a>
 
                                 <a href="./Logout" class="dropdown-item">Logout</a>
                             </div>
@@ -57,7 +57,7 @@
             </div>
         </nav>
         <div class="container">
-            <h2 class="text-center">Hóa đơn tiền phòng</h2>
+            <h2 class="text-center mt-3">Hóa đơn tiền phòng</h2>
             <hr>
             <h5 class="text-center font-weight-bold mb-3 mt-3">
                 ${room.getRoomName()}

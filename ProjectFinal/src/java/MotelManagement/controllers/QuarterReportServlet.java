@@ -27,16 +27,17 @@ public class QuarterReportServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String[] quarters = request.getParameterValues("quarter");
+        String quarter = request.getParameter("quarter");
         int year = Integer.valueOf(request.getParameter("year"));
 
         List<ReportData> table = new ArrayList<>();
         RoomBus roomBus = new RoomBus();
         List<Room> rooms = roomBus.getRentedRooms();
-
-        for (String quarter : quarters) {
+        String reportTitle = "Báo cáo doanh thu quý ";
+       
             switch (quarter) {
                 case Constant.QUARTER_1:
+                    reportTitle = reportTitle.concat("I " + year);
                     for (Room room : rooms) {
                         ReportData reportData = new ReportData();
                         reportData.setRoomName(room.getName());
@@ -47,6 +48,7 @@ public class QuarterReportServlet extends HttpServlet {
                     }
                     break;
                 case Constant.QUARTER_2:
+                     reportTitle = reportTitle.concat("II " + year);
                     for (Room room : rooms) {
                         ReportData reportData = new ReportData();
                         reportData.setRoomName(room.getName());
@@ -56,6 +58,7 @@ public class QuarterReportServlet extends HttpServlet {
                     }
                     break;
                 case Constant.QUARTER_3:
+                     reportTitle = reportTitle.concat("III " + year);
                     for (Room room : rooms) {
                         ReportData reportData = new ReportData();
                         reportData.setRoomName(room.getName());
@@ -66,6 +69,7 @@ public class QuarterReportServlet extends HttpServlet {
 
                     break;
                 case Constant.QUARTER_4:
+                    reportTitle = reportTitle.concat("1V " + year);
                     for (Room room : rooms) {
                         ReportData reportData = new ReportData();
                         reportData.setRoomName(room.getName());
@@ -77,11 +81,8 @@ public class QuarterReportServlet extends HttpServlet {
                     break;
             }
 
-        }
-        int size = rooms.size();
-        
         request.setAttribute("table", table);
-
+        request.setAttribute("reportTitle", reportTitle);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/Report");
         dispatcher.forward(request, response);
     }

@@ -50,7 +50,7 @@ public class UpdatePowerServlet extends HttpServlet {
 
                 String path = "WEB-INF/views/power/update_power.jsp";
                 dispatcher = request.getRequestDispatcher(path);
-                
+
             } else {
                 dispatcher = request.getRequestDispatcher("/Login");
             }
@@ -147,10 +147,9 @@ public class UpdatePowerServlet extends HttpServlet {
                 powerInfo = powerInfoBus.getPowerInfo(roomId, prevMonth);
 
                 PowerInfoEx powerInfoEx = new PowerInfoEx();
-                powerInfoEx.setId(powerInfo.getId());
                 powerInfoEx.setRoomId(roomId);
                 powerInfoEx.setRoomName(room.getName());
-
+                
                 if (powerInfo == null) { //Tháng đầu tiên cho thuê phòng 
                     //Lấy ngày bắt đầu ở của khách trọ
 
@@ -161,6 +160,8 @@ public class UpdatePowerServlet extends HttpServlet {
                     powerInfoEx.setElectricityIndex(0);
                     powerInfoEx.setWaterIndex(0);
                 } else {
+                    
+                    powerInfoEx.setId(powerInfo.getId());
                     powerInfoEx.setDate(powerInfo.getDate());
                     powerInfoEx.setElectricityIndex(powerInfo.getElectricityIndex());
                     powerInfoEx.setWaterIndex(powerInfo.getWaterIndex());

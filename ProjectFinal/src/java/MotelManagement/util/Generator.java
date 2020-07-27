@@ -69,4 +69,15 @@ public class Generator {
         
         return passwordHashed;
     }
+    
+    public static String generateAdminPass() {
+        return "Admin#1";
+    }
+    
+    public static String generateGuestPass(String roomName) {
+        String[] passPart = roomName.split(" |\\.|,");
+        if (passPart.length > 1) 
+            return "Room#" + passPart[1];
+        return "Room#" + passPart[0];
+    }
 }

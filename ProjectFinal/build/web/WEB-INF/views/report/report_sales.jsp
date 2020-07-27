@@ -57,7 +57,7 @@
 
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a href="./ListAccount" class="dropdown-item">Manage account</a>
-
+                                <a href="./ChangePassword" class="dropdown-item">Đổi mật khẩu</a>
                                 <a href="./Logout" class="dropdown-item">Logout</a>
                             </div>
                         </li>
@@ -66,7 +66,7 @@
             </div>
         </nav>
         <div class="container">
-            <h2 class="text-center">Báo cáo</h2>
+            <h2 class="text-center mt-3">Báo cáo</h2>
             <hr>
             <div id="accordion">
                 <div class="card">
@@ -118,20 +118,20 @@
                     <div id="quarter-report" class="collapse" data-parent="#accordion">
                         <div class="card-body pt-2 pb-2">
                             <form action="./QuarterReport" method="POST">
-                                <div class="custom-control custom-checkbox custom-control-inline">
-                                    <input type="checkbox" class="custom-control-input" name="quarter" id="quarter-1" value="quarter-1">
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" class="custom-control-input" name="quarter" id="quarter-1" value="quarter-1">
                                     <label class="custom-control-label font-weight-bold" for="quarter-1">Qúy I</label>
                                 </div>
-                                <div class="custom-control custom-checkbox custom-control-inline">
-                                    <input type="checkbox" class="custom-control-input" name="quarter" id="quarter-2" value="quarter-2">
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" class="custom-control-input" name="quarter" id="quarter-2" value="quarter-2">
                                     <label class="custom-control-label font-weight-bold" for="quarter-2">Qúy II</label>
                                 </div>
-                                <div class="custom-control custom-checkbox custom-control-inline">
-                                    <input type="checkbox" class="custom-control-input" name="quarter" id="quarter-3" value="quarter-3">
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" class="custom-control-input" name="quarter" id="quarter-3" value="quarter-3">
                                     <label class="custom-control-label font-weight-bold" for="quarter-3">Qúy III</label>
                                 </div>
-                                <div class="custom-control custom-checkbox custom-control-inline">
-                                    <input type="checkbox" class="custom-control-input" name="quarter" id="quarter-4" value="quarter-4">
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" class="custom-control-input" name="quarter" id="quarter-4" value="quarter-4">
                                     <label class="custom-control-label font-weight-bold" for="quarter-4">Qúy VI</label>
                                 </div>
                                 <div class="form-inline mt-3">
@@ -174,6 +174,12 @@
             </div>
 
             <div class="mt-4">
+                <c:if test="${reportTitle != null}">
+                    <h5 class="text-center">${reportTitle}</h5>
+                </c:if>
+                <c:if test="${reportSub != null}">
+                    <h6 class="text-center">${reportSub}</h6>
+                </c:if>
                 <table class="table table-striped table-bordered mb-0">
                     <thead class="thead-dark text-center">
                         <tr class="d-flex">

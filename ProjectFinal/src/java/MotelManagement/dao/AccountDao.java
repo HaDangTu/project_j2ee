@@ -53,12 +53,11 @@ public class AccountDao extends BaseDao {
     }
 
     public boolean update(ApplicationUser user) {
-        String sql = "UPDATE accounts SET username = ?, password = ?, role_id = ? WHERE "
+        String sql = "UPDATE accounts SET username = ?, role_id = ? WHERE "
                 + "id = ?;";
 
         Object[] parameters = new Object[]{
             user.getUsername(),
-            user.getPassword(),
             user.getRoleId(),
             user.getId()
         };
@@ -66,6 +65,14 @@ public class AccountDao extends BaseDao {
         return dbConnection.save(sql, parameters);
     }
 
+    public boolean upatePassword(ApplicationUser user) {
+        String sql = "UPDATE accounts SET password = ? WHERE id = ?;";
+        
+        Object[] parameters = new Object[] { user.getPassword(), user.getId() };
+        
+        return dbConnection.save(sql, parameters);
+    }
+    
     public boolean delete(ApplicationUser user) {
         String sql = "DELETE FROM accounts WHERE id = ?;";
 

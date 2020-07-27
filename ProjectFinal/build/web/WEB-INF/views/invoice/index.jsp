@@ -43,7 +43,7 @@
                             <a class="nav-link active font-weight-bold" href="./Invoice">Hóa đơn</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active font-weight-bold" href="./UpdatePower">Điện nước</a>
+                            <a class="nav-link active" href="./UpdatePower">Điện nước</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="./Report">Báo cáo</a>
@@ -58,7 +58,7 @@
 
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a href="./ListAccount" class="dropdown-item">Manage account</a>
-
+                                <a href="./ChangePassword" class="dropdown-item">Đổi mật khẩu</a>
                                 <a href="./Logout" class="dropdown-item">Logout</a>
                             </div>
                         </li>
@@ -67,7 +67,7 @@
             </div>
         </nav>        
         <div class="container">
-            <h2 class="text-center">Hóa đơn</h2>
+            <h2 class="text-center mt-3">Hóa đơn</h2>
             <hr>
             <div class="row">
                 <div class="col-sm-4">

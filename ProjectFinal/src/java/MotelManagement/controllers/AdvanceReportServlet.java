@@ -46,7 +46,15 @@ public class AdvanceReportServlet extends HttpServlet {
                 
                 table.add(data);
             }
+            
+            formatter = new SimpleDateFormat("dd/MM/yyyy");
+            
+            String reportTitle = "Báo cáo doanh thu";
+            String reportSub = "Từ ngày " + formatter.format(fromDate) + "\tĐến ngày " + formatter.format(toDate);
+            
             request.setAttribute("table", table);
+            request.setAttribute("reportTitle", reportTitle);
+            request.setAttribute("reportSub", reportSub);
             RequestDispatcher dispatcher = request.getRequestDispatcher("/Report");
             dispatcher.forward(request, response);
         }

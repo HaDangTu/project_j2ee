@@ -9,7 +9,6 @@
         <title>Home</title>
 
         <c:set var="context" value="${pageContext.request.contextPath}"/>
-        <c:set var="context" value="${pageContext.request.contextPath}"/>
         <link rel="stylesheet" type="text/css" href="${context}/resources/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="${context}/resources/css/site.css">
         <link href="${context}/resources/css/site.css" type="text/css" rel="stylesheet">
@@ -50,7 +49,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link text-white" href="./Invoice">Hóa đơn</a>
                                 </li>
-
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="./UpdatePower">Điện nước</a>
+                                </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-white" href="./Report">Báo cáo</a>
                                 </li>
@@ -64,7 +65,7 @@
 
                                     <div class="dropdown-menu dropdown-menu-right">
                                         <a href="./ListAccount" class="dropdown-item">Manage account</a>
-
+                                        <a href="./ChangePassword" class="dropdown-item">Đổi mật khẩu</a>
                                         <a href="./Logout" class="dropdown-item">Logout</a>
                                     </div>
                                 </li>

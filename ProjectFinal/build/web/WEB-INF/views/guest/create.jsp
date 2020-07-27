@@ -61,7 +61,7 @@
 
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a href="./ListAccount" class="dropdown-item">Manage account</a>
-
+                                <a href="./ChangePassword" class="dropdown-item">Đổi mật khẩu</a>
                                 <a href="./Logout" class="dropdown-item">Logout</a>
                             </div>
                         </li>
@@ -70,7 +70,7 @@
             </div>
         </nav>
         <div class="container">
-            <h2 class="text-center">Tạo khách trọ mới</h2>
+            <h2 class="text-center mt-3">Tạo khách trọ mới</h2>
             <hr>
             <div class="d-flex justify-content-center">
                 <form action="./CreateNewGuest" method="POST">

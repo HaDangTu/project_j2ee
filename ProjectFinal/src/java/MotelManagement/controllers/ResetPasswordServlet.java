@@ -1,15 +1,13 @@
 package MotelManagement.controllers;
 
 import MotelManagement.bus.AccountBus;
-import MotelManagement.bus.InvoiceBus;
+import MotelManagement.bus.RoomBus;
 import MotelManagement.dto.ApplicationUser;
-import MotelManagement.dto.ReportData;
+import MotelManagement.dto.Room;
 import MotelManagement.util.Constant;
+import MotelManagement.util.Generator;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,53 +15,45 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+public class ResetPasswordServlet extends HttpServlet {
 
-public class ReportServlet extends HttpServlet {
-
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         HttpSession session = request.getSession();
         ApplicationUser user = (ApplicationUser) session.getAttribute("user");
-        
-        RequestDispatcher dispatcher;
         if (user != null) {
             AccountBus accountBus = new AccountBus();
             String role = accountBus.getRole(user);
-            
+
             if (role.equals(Constant.OWNER)) {
-                Calendar calendar = Calendar.getInstance();
-                int presentYear = calendar.get(Calendar.YEAR);
-                int startYear = Constant.START_YEAR;
+                String userId = request.getParameter("id");
+                ApplicationUser resetUser = accountBus.getUserById(userId);
                 
-                List<Integer> years = new ArrayList();
-                while (startYear <= presentYear) {
-                    years.add(startYear);
-                    startYear++;
+                role = accountBus.getRole(resetUser);
+                String resetPass = "";
+                
+                if (role.equals(Constant.OWNER)) {
+                    resetPass = Generator.generateAdminPass();
+                }
+                else if (role.equals(Constant.GUEST)) {
+                    RoomBus roomBus = new RoomBus();
+                    Room room = roomBus.getRoom(resetUser);
+                    resetPass = Generator.generateGuestPass(room.getName());
                 }
                 
-                request.setAttribute("years", years);
+                resetUser.setPassword(Generator.hashPassword(resetPass));
+                accountBus.changePassword(resetUser);
                 
-                List<ReportData> table = (List<ReportData>) request.getAttribute("table");
-                
-                if (table != null) {
-                    request.setAttribute("table", table);
-                    
-                }
-                
-                String path = "WEB-INF/views/report/report_sales.jsp";
-                dispatcher = request.getRequestDispatcher(path);
-//                dispatcher.forward(request, response);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/ListAccount");
+                dispatcher.forward(request, response);
+            } else {
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/Login");
+                dispatcher.forward(request, response);
             }
-            else {
-                dispatcher = request.getRequestDispatcher("/Login");
-            }
+        } else {
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/Login");
+            dispatcher.forward(request, response);
         }
-        else {
-            dispatcher = request.getRequestDispatcher("/Login");
-        }
-        dispatcher.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

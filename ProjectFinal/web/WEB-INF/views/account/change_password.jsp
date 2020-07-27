@@ -1,16 +1,15 @@
 <%@page import="MotelManagement.dto.ApplicationUser"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <c:set var="context" value="${pageContext.request.contextPath}"/>
         <link rel="stylesheet" type="text/css" href="${context}/resources/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="${context}/resources/css/site.css">
-        <title>Xóa phòng trọ</title>
+        <link href="${context}/resources/css/site.css" type="text/css" rel="stylesheet">
+        <title>Đổi mật khẩu</title>
     </head>
     <body>
         <%
@@ -28,37 +27,37 @@
 
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="./Home">Home</a>
+                            <a class="nav-link active" href="./Home">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="./ListGuest">Khách trọ</a>
+                            <a class="nav-link active" href="./ListGuest">Khách trọ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="./ListRoom">Phòng trọ</a>
+                            <a class="nav-link active" href="./ListRoom">Phòng trọ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white font-weight-bold" href="./ListRoomType">Loại phòng trọ</a>
+                            <a class="nav-link active" href="./ListRoomType">Loại phòng trọ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="./Invoice">Hóa đơn</a>
+                            <a class="nav-link active" href="./Invoice">Hóa đơn</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="./UpdatePower">Điện nước</a>
+                            <a class="nav-link active" href="./UpdatePower">Điện nước</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="./Report">Báo cáo</a>
+                            <a class="nav-link active" href="./Report">Báo cáo</a>
                         </li>
                     </ul>
 
                     <ul class="navbar-nav my-2 my-lg-0">
                         <li class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle active" data-toggle="dropdown">
+                            <a href="#" class="nav-link dropdown-toggle active font-weight-bold" data-toggle="dropdown">
                                 Hello! <%= user.getUsername()%>
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a href="./ListAccount" class="dropdown-item">Manage account</a>
-                                <a href="./ChangePassword" class="dropdown-item">Đổi mật khẩu</a>
+
                                 <a href="./Logout" class="dropdown-item">Logout</a>
                             </div>
                         </li>
@@ -67,33 +66,38 @@
             </div>
         </nav>
         <div class="container">
-            <h2 class="text-center mt-3">Xóa thông tin phòng trọ</h2>
+            <h2 class="text-center mt-3">Đổi mật khẩu</h2>
             <hr>
-            <a href="./ListRoom">Back to list</a>
             <div class="d-flex justify-content-center">
-                <form action="./DeleteRoomType?id=${roomType.getId()}" method="POST">
-
-                    <div class="form-inline mt-1">
-                        <label class="font-weight-bold mr-5">Tên loại phòng</label>
-                        <p class="mb-0">${roomType.getName()}</p>
+                <form action="./ChangePassword" method="POST">
+                    <div class="form-group">
+                        <label for="old-pass" class="font-weight-bold">Mật khẩu cũ</label>
+                        <input name="old-pass" class="form-control" type="password">
+                        <c:if test="${!errOldPassMsg.equals('')}">
+                            <p class="text-danger font-weight-bold">${errOldPassMsg}</p>
+                        </c:if>
                     </div>
-
-                    <div class="form-inline mt-1">
-                        <label class="font-weight-bold mr-5">Số lượng người</label>
-                        <p class="mb-0">${roomType.getNumOfGuest()}</p>
+                    
+                    <div class="form-group">
+                        <label for="new-pass" class="font-weight-bold">Mật khẩu mới</label>
+                        <input name="new-pass" class="form-control" type="password">
+                        <c:if test="${!errNewPassMsg.equals('')}">
+                            <p class="text-danger font-weight-bold">${errNewPassMsg}</p>
+                        </c:if>
                     </div>
-
-                    <div class="form-inline mt-1">
-                        <label class="font-weight-bold mr-5">Giá thuê</label>
-                        <p class="mb-0">
-                            <fmt:formatNumber type="number" value="${roomType.getPrice()}"/> VND
-                        </p>
+                    
+                    <div class="form-group">
+                        <label for="confirm-new-pass" class="font-weight-bold">Nhập lại mật khẩu</label>
+                        <input name="confirm-new-pass" class="form-control" type="password">
+                        <c:if test="${!errConfirmPassMsg.equals('')}">
+                            <p class="text-danger font-weight-bold">${errConfirmPassMsg}</p>
+                        </c:if>
                     </div>
-
-                    <div class="d-flex justify-content-center mt-2">
-                        <input type="submit" value="Xóa" class="btn btn-outline-primary">
+                    
+                    <div class="d-flex mt-4 justify-content-center">
+                        <input type="submit" value="Đổi mật khẩu" class="btn btn-outline-primary">
                     </div>
-                </form>  
+                </form>
             </div>
         </div>
     </body>

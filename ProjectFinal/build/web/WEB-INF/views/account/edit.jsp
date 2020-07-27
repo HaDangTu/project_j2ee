@@ -56,7 +56,7 @@
 
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a href="./ListAccount" class="dropdown-item">Manage account</a>
-
+                                <a href="./ChangePassword" class="dropdown-item">Manage account</a>
                                 <a href="./Logout" class="dropdown-item">Logout</a>
                             </div>
                         </li>
@@ -65,7 +65,7 @@
             </div>
         </nav>
         <div class="container">
-            <h2 class="text-center">Cập nhật thông tin tài khoản</h2>
+            <h2 class="text-center mt-3">Cập nhật thông tin tài khoản</h2>
             <hr>
             <a href="./ListAccount">Back to list</a>
             <div class="d-flex justify-content-center">
@@ -89,8 +89,11 @@
                         </select>
                     </div>
 
+                    <div class="form-group">
+                        <a href="./ResetPassword?id=${account.getId()}">Reset mật khẩu</a>
+                    </div>
                     <div class="d-flex justify-content-center"> 
-                        <input type="submit" value="Tạo tài khoản" class="btn btn-outline-primary">
+                        <input type="submit" value="Cập nhật tài khoản" class="btn btn-outline-primary">
                     </div>
 
                 </form>

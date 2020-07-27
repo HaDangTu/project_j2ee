@@ -87,7 +87,7 @@ public class CreateNewRoomServlet extends HttpServlet {
 //            AccountBus accountBus = new AccountBus();
                     String userId = accountBus.nextId();
                     newUser.setUsername(roomName);
-                    newUser.setPassword(Generator.hashPassword(generatePass(roomName)));
+                    newUser.setPassword(Generator.hashPassword(Generator.generateGuestPass(roomName)));
                     newUser.setRoleId("R02");
 
                     accountBus.insert(newUser);
@@ -109,12 +109,5 @@ public class CreateNewRoomServlet extends HttpServlet {
             dispatcher = request.getRequestDispatcher("/Login");
         }
         dispatcher.forward(request, response);
-    }
-    
-    private String generatePass(String roomName) {
-        String[] passPart = roomName.split(" |\\.|,");
-        if (passPart.length > 1) 
-            return "Room#" + passPart[1];
-        return "Room#" + passPart[0];
     }
 }

@@ -20,7 +20,7 @@ public class MonthReportServlet extends HttpServlet {
             throws ServletException, IOException {
         int month = Integer.valueOf(request.getParameter("month"));
         int year = Integer.valueOf(request.getParameter("year"));
-        
+        String reportTitle = "Báo cáo doanh thu tháng " + month + " năm " + year;
         List<ReportData> table = new ArrayList<>();
         
         RoomBus roomBus = new RoomBus();
@@ -39,7 +39,7 @@ public class MonthReportServlet extends HttpServlet {
         }
         
         request.setAttribute("table", table);
-        
+        request.setAttribute("reportTitle", reportTitle);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/Report");
         dispatcher.forward(request, response);
                

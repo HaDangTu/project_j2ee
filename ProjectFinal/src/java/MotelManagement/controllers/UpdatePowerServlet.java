@@ -89,6 +89,8 @@ public class UpdatePowerServlet extends HttpServlet {
                 if (!electricErrMsg.equals("") || !waterErrMsg.equals("")) {
                     request.setAttribute("electricErrMsg", electricErrMsg);
                     request.setAttribute("waterErrMsg", waterErrMsg);
+                    doGet(request, response);
+                    return;
                 } else {
 
                     long electricityIndex = Long.valueOf(newElecIndexStr);
@@ -116,6 +118,8 @@ public class UpdatePowerServlet extends HttpServlet {
             }
         } else {
             request.setAttribute("roomErrMsg", "Vui lòng chọn phòng ở bảng bên dưới");
+            doGet(request, response);
+            return;
         }
 
     }

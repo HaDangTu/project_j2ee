@@ -67,14 +67,15 @@
         <div class="container">
             <h2 class="text-center mt-3">Thông tin điện nước</h2>
             <hr>
+            <c:if test="${!roomErrMsg.equals('')}">
+                <label class="text-danger">${roomErrMsg}</label>
+            </c:if>
             <div class="d-flex justify-content-center">
                 <form action="./UpdatePower" method="POST">
                     <div class="form-inline justify-content-center">
                         <h5 id="room-name"></h5>
                         <input name="room-id" id="room-id" hidden="hidden">
-                        <c:if test="${!roomErrMsg.equals('')}">
-                            <label class="text-danger">${roomErrMsg}</label>
-                        </c:if>
+
                     </div>
                     <div class="form-inline">
                         <label for="from-date" class="font-weight-bold">Từ ngày</label>

@@ -32,7 +32,7 @@
                             <a class="nav-link active" href="./ListGuest">Khách trọ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="./ListRoom">Phòng trọ</a>
+                            <a class="nav-link active font-weight-bold" href="./ListRoom">Phòng trọ</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="./ListRoomType">Loại phòng trọ</a>

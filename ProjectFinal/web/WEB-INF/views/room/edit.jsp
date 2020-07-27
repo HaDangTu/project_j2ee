@@ -29,10 +29,10 @@
                             <a class="nav-link active" href="./Home">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active font-weight-bold" href="./ListGuest">Khách trọ</a>
+                            <a class="nav-link active " href="./ListGuest">Khách trọ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="./ListRoom">Phòng trọ</a>
+                            <a class="nav-link active font-weight-bold" href="./ListRoom">Phòng trọ</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="./ListRoomType">Loại phòng trọ</a>
@@ -65,7 +65,7 @@
             </div>
         </nav>
         <div class="container">
-            <h2 class="text-center mt-3">Tạo phòng trọ mới</h2>
+            <h2 class="text-center mt-3">Cập nhật thông tin phòng trọ</h2>
             <hr>
             <a href="./ListRoom">Back to list</a>
             <div class="d-flex justify-content-center">
@@ -91,7 +91,7 @@
                         </select>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <input type="submit" value="Cập nhật">
+                        <input type="submit" value="Cập nhật" class="btn btn-outline-primary">
                     </div>
                 </form>
             </div>

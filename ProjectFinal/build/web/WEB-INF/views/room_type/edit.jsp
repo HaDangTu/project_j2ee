@@ -67,6 +67,7 @@
         <div class="container">
             <h2 class="text-center mt-3">Cập nhật thông tin loại phòng trọ</h2>
             <hr>
+            <a href="./ListRoomType">Back to list</a>
             <div class="d-flex justify-content-center">
                 <form action="./EditRoomType?id=${roomType.getId()}" method="POST">
 

@@ -69,7 +69,7 @@
         <div class="container">
             <h2 class="text-center mt-3">Xóa thông tin phòng trọ</h2>
             <hr>
-            <a href="./ListRoom">Back to list</a>
+            <a href="./ListRoomType">Back to list</a>
             <div class="d-flex justify-content-center">
                 <form action="./DeleteRoomType?id=${roomType.getId()}" method="POST">
 

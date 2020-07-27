@@ -41,7 +41,9 @@
                         <li class="nav-item">
                             <a class="nav-link active font-weight-bold" href="./Invoice">Hóa đơn</a>
                         </li>
-
+                        <li class="nav-item">
+                            <a class="nav-link active" href="./UpdatePower">Điện nước</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="./Report">Báo cáo</a>
                         </li>

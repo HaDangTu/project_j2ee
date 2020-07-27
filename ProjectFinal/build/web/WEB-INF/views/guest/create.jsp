@@ -72,6 +72,7 @@
         <div class="container">
             <h2 class="text-center mt-3">Tạo khách trọ mới</h2>
             <hr>
+            <a href="./ListGuest">Back to list</a>
             <div class="d-flex justify-content-center">
                 <form action="./CreateNewGuest" method="POST">
                     <div class="form-group">
